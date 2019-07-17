@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: gsxhnd
+title: 伍轻鸣
 subtitle:
 description:
 keywords:
@@ -44,7 +44,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -53,7 +53,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -82,88 +82,6 @@ theme: material-x
 deploy:
   type:
 
-# >> 主题配置 ---------------------------------------------------------------------
-# 导航栏
-nav_menu:
-  - name: 主页
-    slug: about
-    icon: fas fa-home
-    url: /
-  # - name: 项目
-  #   slug: projects
-  #   icon: fas fa-cube
-  #   url: /
-  - name: 归档
-    slug: archives
-    icon: fas fa-archive
-    url: /archives
-
-# 右边的小窗口，不想显示哪一项的注释掉对应的即可
-widgets:
-  # 博主信息，显示个人头像、格言、社交信息等
-  - widget: author
-    avatar: https://avatars0.githubusercontent.com/u/2520449?s=460&v=4
-    title: 伍轻鸣 # 博客名、头衔等等，居中显示
-    social: true
-  # 显示文章分类
-  - widget: category
-    title: 分类
-  # 显示文章标签
-  - widget: tagcloud
-    title: 标签
-  # 显示友链
-  - widget: list
-    icon: fas fa-users
-    title: 友链
-    rows: 
-      - name: xaoxuu
-        url: https://xaoxuu.com
-      - name: 西西弗斯
-        url: http://www.guihuo.ink/
-  # 显示目录（在文章中设置toc:false可以隐藏单篇文章的目录）
-  - widget: toc
-
-# 页脚社交信息
-social:
-  - icon: fab fa-github
-    url: https://github.com/gsxhnd
-  - icon: fas fa-instagram
-    url:
-  - icon: fa-google-plus
-    url:
-  - icon: fa-twitter
-    url:
-  - icon: fa-music
-    url: 
-  - icon: fa-rss
-    url: 
-  - icon: fa-telegram
-    url:
-  - icon: fa-vimeo
-    url:
-  - icon: fa-gitlab
-    url:
-  - icon: fa-linkedin
-    url:
-  - icon: fa-snapchat
-    url:
-  - icon: fa-steam
-    url:
-  - icon: fa-spotify
-    url:
-  - icon: fa-tumblr
-    url:
-  - icon: fa-youtube
-    url:
-  - icon: fab fa-weibo
-    url: https://weibo.com/p/1005052419493220
-  - icon: fa-weixin
-    url:
-  - icon: fa-qq
-    url:
-  - icon: fas fa-envelope
-    url: mailto:gsxhnd@foxmain.com
-
 # 推荐文章
 recommended_posts:
   autoDisplay: false # 自动在文章底部显示推荐文章，如果你使用Material-X主题，这里要设置为false。
@@ -174,7 +92,6 @@ recommended_posts:
   internalLinks: 3 # 内部文章数量
   externalLinks: 2 # 外部文章数量
   fixedNumber: false
-
 
 # Search 确保_config中只有一个search，否则会冲突。
 search:
