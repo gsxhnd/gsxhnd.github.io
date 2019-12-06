@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "server": "hexo server",
+    "server": "hexo server -p 5000",
     "watch": "hexo g -w",
     "deploy": "hexo D",
     "dev": "npm run server && npm run watch"
@@ -28,7 +28,7 @@
     "hexo-related-popular-posts": "^3.0.3",
     "hexo-renderer-ejs": "^0.3.1",
     "hexo-renderer-less": "^1.0.0",
-    "hexo-renderer-marked": "^1.0.1",
+    "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.1"
   }
