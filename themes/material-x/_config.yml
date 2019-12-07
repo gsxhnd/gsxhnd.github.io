@@ -71,14 +71,14 @@ cover:
 
 # 桌面端导航栏菜单
 menu_desktop:
-  # - name: 分类
-  #   icon: fas fa-folder-open
-  #   url: /categories/
-  #   rel: nofollow
-  # - name: 标签
-  #   icon: fas fa-hashtag
-  #   url: /tags/
-  #   rel: nofollow
+  - name: 分类
+    icon: fas fa-folder-open
+    url: /categories/
+    rel: nofollow
+  - name: 标签
+    icon: fas fa-hashtag
+    url: /tags/
+    rel: nofollow
   - name: 归档
     icon: fas fa-archive
     url: /archives/
@@ -93,9 +93,9 @@ menu_mobile:
     icon: fas fa-archive
     url: /archives/
     rel: nofollow
-  # - name: 开源项目
-  #   icon: fas fa-code-branch
-  #   url: projects/
+  - name: 开源项目
+    icon: fas fa-code-branch
+    url: projects/
   - name: 主题文档
     icon: fas fa-book
     url: https://xaoxuu.com/wiki/material-x/
@@ -154,15 +154,11 @@ sidebar:
         url: /
       - name: 文章归档
         icon: fas fa-archive
-        url: blog/archives/
+        url: /archives/
         rel: nofollow
       - name: 开源项目
         icon: fas fa-code-branch
         url: projects/
-      - name: 我的友链
-        icon: fas fa-link
-        url: friends/
-        rel: nofollow
       - name: 主题文档
         icon: fas fa-book
         url: https://xaoxuu.com/wiki/material-x/
@@ -174,13 +170,13 @@ sidebar:
   - widget: category
     more:
       icon: fas fa-expand-arrows-alt
-      url: blog/categories/
+      url: categories/
       rel: nofollow
   - widget: tagcloud
     icon: fas fa-tags
     more:
       icon: fas fa-expand-arrows-alt
-      url: blog/tags/
+      url: /tags/
       rel: nofollow
 
 # 社交信息

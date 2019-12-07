@@ -2,16 +2,11 @@
   title: Commit 和 Change log 编写指南
   tags: 
       - Git
-  
+  cover: false
   categories:
       - Git
   date: 2019/12/08 02:29
 ---
-
-# Commit 和 Change log 编写指南
-
-
-
 ## Commit message
 参考Angular规范<a href="#section1">[1]</a>
 
