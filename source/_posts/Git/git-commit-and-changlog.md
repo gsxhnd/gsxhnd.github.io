@@ -8,7 +8,7 @@
   date: 2019/12/08 02:29
 ---
 ## Commit message
-参考Angular规范<a href="#section1">[1]</a>
+参考Angular规范<sup><a href="#section1">[1]</a></sup>
 
 ```
 <type>(<scope>) : <subject>
@@ -102,13 +102,32 @@ Closes #123, #245, #992
 
 
 
-
-
-
-
-
-
 ## Change log
+
+### Header
+版本==》版本地址==》发布日期
+```
+## [9.0.0-rc.5](url)(2006-01-02)
+```
+
+### Describtion
+详细描述分三种
+1. Bug Fixes bug修复
+2. Features  新功能
+3. Performance Improvements 性能提升
+
+```
+<scope>: <subject> (issue) (commit)
+```
+
+`scpoe`: 更新范围
+`subject`: 详细信息
+`issue`: 错误编号，如果没有可以不填
+`commit`: 提交的hash
+```
+core: allow css custom variables/properties in the style sanitizer (#33841) (61cc7a3), closes #23485 #23485
+```
+
 
 
 ## 参考文献

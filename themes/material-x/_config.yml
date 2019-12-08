@@ -128,7 +128,7 @@ layout:
 # 侧边栏小部件配置
 sidebar:
   - widget: author
-    avatar: https://avatars0.githubusercontent.com/u/2520449?s=460&v=4
+    avatar: http://q25l4ee7l.bkt.clouddn.com/2520449.jpeg
     jinrishici: false
     social: true
   # - widget: plain
@@ -187,8 +187,8 @@ social:
     url:
   - icon: fa-google-plus
     url:
-  - icon: fa-twitter
-    url:
+  - icon: fab fa-twitter
+    url: https://twitter.com/gsxhnd_Wu
   - icon: fa-music
     url:
   - icon: fa-rss
@@ -199,8 +199,8 @@ social:
     url:
   - icon: fa-gitlab
     url:
-  - icon: fa-linkedin
-    url:
+  - icon: fab fa-linkedin
+    url: https://www.linkedin.com/in/%E5%AE%B6%E8%BE%89-%E9%A9%AC-39464b194/
   - icon: fa-snapchat
     url:
   - icon: fa-steam
