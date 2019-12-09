@@ -47,7 +47,7 @@ backstretch:
   images:
     # - https://pic4.zhimg.com/80/v2-e2d066c4e43dae8c7a0fc0cd7d703a35_r.jpg
     # - http://q25l4ee7l.bkt.clouddn.com/acg.gy_21.jpg
-    - https://gsxhnd-blog.oss-cn-hongkong.aliyuncs.com/images/acg.gy_21.jpg
+    - /images/acg.gy_21.jpg
 
 ############################### 自定义 ###############################
 cover:
@@ -129,7 +129,7 @@ layout:
 # 侧边栏小部件配置
 sidebar:
   - widget: author
-    avatar: https://gsxhnd-blog.oss-cn-hongkong.aliyuncs.com/images/2520449.jpeg
+    avatar: /images/2520449.jpeg
     jinrishici: false
     social: true
   # - widget: plain
