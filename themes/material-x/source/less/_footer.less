@@ -2,7 +2,8 @@
   position: relative;
   padding: 40px 10px 120px 10px;
   width: 100%;
-  color: fade(@color_text_main, 50%);
+  // color: fade(@color_text_main, 50%);
+  color: #fff;
   margin: 0px auto;
   font-size: @fontsize_small;
   overflow: hidden;
@@ -20,10 +21,11 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 4px @gap/2;
+    margin: 4px @gap / 2;
   }
   a {
-    color: fade(@color_text_main, 70%);
+    // color: fade(@color_text_main, 70%);
+    color: #fff;
     padding: 0;
     .enable-trans();
     &:hover {
@@ -46,7 +48,7 @@
       }
     }
   }
-  @media(max-width: @on_pad){
+  @media (max-width: @on_pad) {
     justify-content: center;
   }
 }
