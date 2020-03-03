@@ -46,10 +46,6 @@ backstretch:
   fade: 2500 # 渐变（毫秒）
   images:
     # - https://pic4.zhimg.com/80/v2-e2d066c4e43dae8c7a0fc0cd7d703a35_r.jpg
-    # - http://q25l4ee7l.bkt.clouddn.com/acg.gy_21.jpg
-    # - /images/acg.gy_21.jpg
-    # - /images/ACG.GY_33.jpg
-    # - /images/www.acg.gy_27.jpg
     - https://gsxhnd-blog.oss-cn-hongkong.aliyuncs.com/images/www.acg.gy_27.jpg
     # - https://gsxhnd-blog.oss-cn-hongkong.aliyuncs.com/images/acg.gy_08.jpg
 

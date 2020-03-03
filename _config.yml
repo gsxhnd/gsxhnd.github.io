@@ -82,7 +82,6 @@ theme: material-x
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  # repo: https://github.com/gsxhnd/gsxhnd.github.io.git
   repo: git@github.com:gsxhnd/gsxhnd.github.io.git
   branch: master
   message: Site update
