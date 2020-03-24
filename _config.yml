@@ -84,7 +84,7 @@ deploy:
   type: git
   repo: git@github.com:gsxhnd/gsxhnd.github.io.git
   branch: master
-  message: Site update
+  message: update head
 
 # 推荐文章
 recommended_posts:
