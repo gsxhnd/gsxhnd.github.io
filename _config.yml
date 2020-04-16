@@ -112,6 +112,8 @@ recommended_posts:
 
 # Search 确保_config中只有一个search，否则会冲突。
 search:
+  path: search.json
+  field: post
   enable: true
   service: hexo
   # google
