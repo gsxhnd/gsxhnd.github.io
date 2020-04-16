@@ -4,18 +4,23 @@
 
 # Site
 title: 伍轻鸣
-subtitle:
+subtitle: Stay Hungry, Stay Foolish
 description:
 keywords:
 author: gsxhnd
 language:
   - zh-CN
 timezone:
-favicon: /images/favicon32x32.ico
+favicon: /images/favicon.ico
+
+sidebar-avatar: https://gsxhnd-blog.oss-cn-hongkong.aliyuncs.com/images/2520449.jpeg
+
+avatar_style:
+  radius: true
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://gsxhnd.github.io
+url: https://www.gsxhnd.xyz
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -76,7 +81,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: material-x
+theme: aircloud
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -96,6 +101,14 @@ recommended_posts:
   internalLinks: 3 # 内部文章数量
   externalLinks: 2 # 外部文章数量
   fixedNumber: false
+# SNS settings
+# 一些社交平台地址，支持以下几种：
+# weibo_username: 3286578617
+# zhihu_username: ai-er-lan-xue-da
+# github_username: AirCloud
+# twitter_username: iconie_alloy
+# facebook_username: xiaotao.nie.5
+# linkedin_username: 小涛-聂-80964aba
 
 # Search 确保_config中只有一个search，否则会冲突。
 search:
