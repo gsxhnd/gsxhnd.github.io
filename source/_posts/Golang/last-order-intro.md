@@ -1,6 +1,15 @@
+---
+title: LastOrder-网关服务
+tags:
+  - Golang
+categories:
+  - Golang
+date: 2020/06/22 10:00
+---
+
 # LastOrder
 
-[Golang](https://github.com/golang/go)编写的网关服务，使用Etcd存储和获取服务配置和API转发规则。
+[Golang](https://github.com/golang/go)编写的网关服务，使用 Etcd 存储和获取服务配置和 API 转发规则。
 
 1. [Website]()
 2. [Release](https://github.com/MisakaSystem/LastOrder/releases)
@@ -12,36 +21,47 @@
 2. 转发
 
 ## 需求
-- Etcd集群或单节点
+
+- Etcd 集群或单节点
 
 ## 设置配置
-### 1.1 安装owl
-使用owl将配置文件保存到Etcd
+
+### 1.1 安装 owl
+
+使用 owl 将配置文件保存到 Etcd
+
 - 使用 go install owl
+
 ```shell script
 go install github.com/gsxhnd/owl
 ```
+
 - 下载二进制
+
 ```shell script
 wget https://github.com/gsxhnd/owl/releases/download/v0.3.0/owl-0.3.0-linux64-amd64
 mv owl-0.3.0-linux64-amd64 /usr/local/bin/owl
 chmod +x /usr/local/bin/owl
 ```
 
-### 1.2 设置/更新配置文件至Etcd
+### 1.2 设置/更新配置文件至 Etcd
+
 ```shell script
 owl put -e "local_dev:2379" /conf/gateway.yaml ./conf/gateway.yaml
 ```
 
-### 1.3 确认当前Etcd中的配置内容
+### 1.3 确认当前 Etcd 中的配置内容
+
 ```shell script
 owl get -e "local_dev:2379" /conf/cdn.yaml
 ```
 
 ## 下载 LastOrder
+
 通过[Release](https://github.com/MisakaSystem/LastOrder/releases)页面下载最新的二进制文件
 
 ## 启动服务
+
 ```bash
 last_order run --etcds="127.0.0.1:2379" /conf/gateway.yaml
 ```
