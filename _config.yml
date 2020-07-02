@@ -1,5 +1,5 @@
 # Site
-title: 伍轻鸣
+title: blog
 subtitle: Stay Hungry, Stay Foolish
 description:
 keywords:
@@ -84,10 +84,14 @@ theme: aircloud
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@github.com:gsxhnd/gsxhnd.github.io.git
-  branch: master
-  message: update theme
+  - type: git
+    repo: git@github.com:gsxhnd/gsxhnd.github.io.git
+    branch: master
+    message: update theme
+  - type: coding
+    repo: git@e.coding.net:gsxhnd/blog/blog.git
+    branch: master
+    message: update theme
 
 # 推荐文章
 recommended_posts:
