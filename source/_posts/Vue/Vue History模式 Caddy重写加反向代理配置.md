@@ -1,20 +1,16 @@
 ---
-  title: Vue History模式 Caddy重写加反向代理配置
-  tags: 
-      - Vue
-      - 前端
-      - Caddy
-  
-  categories:
-      - Vue
-  date: 2019/2/21 21:52
+title: Vue History模式 Caddy重写加反向代理配置
+tags:
+  - Vue
+categories:
+  - Vue
+date: 2019/2/21 21:52
 ---
 
+# 简介
 
-
-#  简介
-1 在vue路由模式为history的时候，刷新页面会出现404问题。我们只需要在服务器配置如果URL匹配不到任何静态资源，就跳转到默认的index.html。
-2 需要反响代理，实现AJAX请求。
+1 在 vue 路由模式为 history 的时候，刷新页面会出现 404 问题。我们只需要在服务器配置如果 URL 匹配不到任何静态资源，就跳转到默认的 index.html。
+2 需要反响代理，实现 AJAX 请求。
 
 ```
 exampe.com {

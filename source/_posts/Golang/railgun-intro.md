@@ -1,5 +1,5 @@
 ---
-title: LastOrder-网关服务
+title: Railgun-网关服务
 tags:
   - Golang
 categories:
@@ -7,7 +7,7 @@ categories:
 date: 2020/06/22 10:00
 ---
 
-# LastOrder
+# Railgun
 
 [Golang](https://github.com/golang/go)编写的网关服务，使用 Etcd 存储和获取服务配置和 API 转发规则。
 
@@ -56,7 +56,7 @@ owl put -e "local_dev:2379" /conf/gateway.yaml ./conf/gateway.yaml
 owl get -e "local_dev:2379" /conf/cdn.yaml
 ```
 
-## 下载 LastOrder
+## 下载 Railgun
 
 通过[Release](https://github.com/MisakaSystem/LastOrder/releases)页面下载最新的二进制文件
 
@@ -77,3 +77,4 @@ last_order run --etcds="127.0.0.1:2379" /conf/gateway.yaml
 ## License
 
 [MIT](https://tldrlegal.com/license/mit-license)
+

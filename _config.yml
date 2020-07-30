@@ -75,10 +75,6 @@ donate:
   img: img/donate.jpg
   content: 感谢鼓励
 
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-# theme: landscape
 theme: aircloud
 
 # Deployment
