@@ -8,13 +8,12 @@ author: gsxhnd
 language:
   - zh-CN
 timezone:
-favicon: /images/favicon.ico
+favicon: /img/favicon.ico
 
-sidebar-avatar: https://gsxhnd-blog.oss-cn-hongkong.aliyuncs.com/images/2520449.jpeg
+sidebar-avatar: /img/2520449.jpeg
 avatar_style:
   radius: true
 
-# URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://www.gsxhnd.xyz
 root: /
