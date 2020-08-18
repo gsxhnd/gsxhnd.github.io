@@ -33,7 +33,7 @@ skip_render:
 new_post_name: :title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
-external_link: true # Open external links in new tab
+external_link.enable: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
 post_asset_folder: true
@@ -87,16 +87,6 @@ deploy:
     repo: git@e.coding.net:gsxhnd/archive/blog.git
     branch: master
 
-# 推荐文章
-recommended_posts:
-  autoDisplay: false # 自动在文章底部显示推荐文章，如果你使用Material-X主题，这里要设置为false。
-  server: https://api.truelaurel.com # 后端推荐服务器地址
-  timeoutInMillis: 10000 # 服务时长，超过此时长，则使用离线推荐模式
-  excludePattern: []
-  titleHtml: <h4>推荐文章</h4> #自定义标题
-  internalLinks: 3 # 内部文章数量
-  externalLinks: 2 # 外部文章数量
-  fixedNumber: false
 # SNS settings
 # 一些社交平台地址，支持以下几种：
 weibo_username: 2419493220
