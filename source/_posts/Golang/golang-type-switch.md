@@ -50,5 +50,12 @@ float, err := strconv.ParseFloat(string,32/64)
 
 //string 到 uint64(uint32)
 uint64, err :=strconv.ParseUint(string,10,64)
+```
+
+## uint
+
+```go
+// uint to float64
+float64 := float64(uint)
 
 ```
