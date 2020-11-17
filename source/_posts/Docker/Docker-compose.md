@@ -1,4 +1,12 @@
-# docker-compose 配置文件解释
+---
+title: docker-compose 配置文件解释
+tags:
+  - Docker
+
+categories:
+  - Docker
+date: 2020/11/16 18:43
+---
 
 ```yaml
 Compose 和 Docker 兼容性：
