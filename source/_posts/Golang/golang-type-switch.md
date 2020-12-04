@@ -7,7 +7,7 @@ categories:
 date: 2020/05/26 13:29
 ---
 
-## int
+## int 转化其他类型
 
 ```go
 import "strconv"  //先导入strconv包
@@ -19,7 +19,7 @@ string := strconv.Itoa(int)
 string := strconv.FormatInt(int64,10)
 ```
 
-## float
+## float 转化其他类型
 
 ```go
 //float到string
@@ -34,7 +34,7 @@ string := strconv.FormatFloat(float64, 'E', -1, 64)
 // 'G' ('E':大指数，'f':其它情况)
 ```
 
-## string
+## string 转化其他类型
 
 ```go
 import "strconv"  //先导入strconv包
@@ -52,7 +52,7 @@ float, err := strconv.ParseFloat(string,32/64)
 uint64, err :=strconv.ParseUint(string,10,64)
 ```
 
-## uint
+## uint 转化其他类型
 
 ```go
 // uint to float64
