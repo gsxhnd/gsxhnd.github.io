@@ -10,7 +10,7 @@ language:
 timezone:
 favicon: /img/favicon.ico
 
-sidebar-avatar: /img/2520449.jpeg
+sidebar-avatar: https://pic-1257414393.file.myqcloud.com/account.jpg
 avatar_style:
   radius: true
 
