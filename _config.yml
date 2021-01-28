@@ -71,10 +71,6 @@ time_format: HH:mm:ss
 per_page: 5
 pagination_dir: page
 
-donate:
-  img: img/donate.jpg
-  content: 感谢鼓励
-
 theme: aircloud
 
 # Deployment

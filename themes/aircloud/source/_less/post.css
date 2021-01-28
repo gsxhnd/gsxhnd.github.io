@@ -61,7 +61,7 @@
 }
 .post-content a {
   text-decoration: none;
-  color: #4990E2;
+  color: #4990e2;
 }
 .post-content p {
   color: #404040;
@@ -90,7 +90,7 @@
 }
 .post-content ul li:before,
 .post-content ol li:before {
-  content: '• ';
+  content: "• ";
 }
 .post-content pre {
   text-indent: 0;
@@ -131,12 +131,6 @@
 }
 .post-content figcaption {
   text-align: center;
-}
-#comment-container {
-  text-indent: 0;
-}
-#lv-container {
-  text-indent: 0;
 }
 .post-content li p {
   display: inline;

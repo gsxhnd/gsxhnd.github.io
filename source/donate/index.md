@@ -1,8 +1,7 @@
 ---
 layout: "about"
-title: 关于
+title: 捐献
 body: [article, grid, comments]
-sidebar: false
 ---
 
-# 关于
+# 捐献

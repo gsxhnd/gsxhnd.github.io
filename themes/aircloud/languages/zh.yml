@@ -4,6 +4,7 @@ nav:
   archives: 存档
   about: 关于
   search: 搜索
+  donate: 捐献  
 
 post:
   postTime: 发布于
@@ -13,4 +14,3 @@ post:
 
 search:
   search: 搜索
-
