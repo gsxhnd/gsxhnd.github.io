@@ -77,9 +77,6 @@ theme: aircloud
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   - type: git
-    repo: git@github.com:gsxhnd/gsxhnd.github.io.git
-    branch: master
-  - type: git
     repo: git@e.coding.net:gsxhnd/archive/blog.git
     branch: master
 
