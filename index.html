@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <script src="http://cdn.bootcss.com/purl/2.3.1/purl.min.js"></script>
+
+    <script>
+      var url = purl();
+      if (url.attr("host") == "gsxhnd.github.io") {
+        var old_url = url.attr("source");
+        var new_url = old_url.replace("gsxhnd.github.io", "www.gsxhnd.xyz");
+        window.location.replace(new_url);
+      } else {
+        window.location.href = "https://www.gsxhnd.xyz";
+      }
+    </script>
+  </head>
+</html>
