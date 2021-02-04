@@ -1,7 +1,8 @@
 ---
-title: Golang类型转换方法
+title: Golang类型转换方法(strconv包)
 tags:
   - Golang
+  - go-lib
 categories:
   - Golang
 date: 2020/05/26 13:29
@@ -13,19 +14,27 @@ date: 2020/05/26 13:29
 import "strconv"  //先导入strconv包
 
 // int到string
-string := strconv.Itoa(int)
+	i := 10
+	s := strconv.Itoa(i)
+	fmt.Printf("%T, %v\n", s, s)
+//Output:
+//
+//string, 10
+
 
 // int64到string
-string := strconv.FormatInt(int64,10)
+str := strconv.FormatInt(int64,10)
 ```
 
 ## float 转化其他类型
 
 ```go
-//float到string
-string := strconv.FormatFloat(float32, 'E', -1, 32)
+import "strconv"  //先导入strconv包
 
-string := strconv.FormatFloat(float64, 'E', -1, 64)
+//float 转 string
+str := strconv.FormatFloat(float32, 'E', -1, 32)
+
+str := strconv.FormatFloat(float64, 'E', -1, 64)
 // 'b' (-ddddp±ddd，二进制指数)
 // 'e' (-d.dddde±dd，十进制指数)
 // 'E' (-d.ddddE±dd，十进制指数)
@@ -40,16 +49,16 @@ string := strconv.FormatFloat(float64, 'E', -1, 64)
 import "strconv"  //先导入strconv包
 
 // string到int
-int, err := strconv.Atoi(string)
+i, err := strconv.Atoi(str)
 
 // string到int64
-int64, err := strconv.ParseInt(string, 10, 64)
+i64, err := strconv.ParseInt(str, 10, 64)
 
 //string到float32(float64)
-float, err := strconv.ParseFloat(string,32/64)
+f, err := strconv.ParseFloat(str,32/64)
 
 //string 到 uint64(uint32)
-uint64, err :=strconv.ParseUint(string,10,64)
+ui64, err :=strconv.ParseUint(str,10,64)
 ```
 
 ## uint 转化其他类型
