@@ -12,38 +12,38 @@
         <ul>
             <li <% if(is_home()){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= url_for(config.home_dir || '/') %>">
-                    <i class="iconfont icon-shouye1"></i>
+                    <i class="iconfont icon-home"></i>
                     <span><%= __('nav.home') %></span>
                 </a>
             </li>
             <li <% if(is_current('tags')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= url_for(config.tag_dir) %>">
-                    <i class="iconfont icon-biaoqian1"></i>
+                    <i class="iconfont icon-tags"></i>
                     <span><%= __('nav.tags') %></span>
                 </a>
             </li>
             <li <% if(is_current('archive')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= url_for(config.archive_dir) %>">
-                    <i class="iconfont icon-guidang2"></i>
+                    <i class="iconfont icon-archives"></i>
                     <span><%= __('nav.archives') %></span>
                 </a>
             </li>
             <li <% if(is_current('about')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= config.root %><%- 'about/' %>">
-                    <i class="iconfont icon-guanyu2"></i>
+                    <i class="iconfont icon-about"></i>
                     <span><%= __('nav.about') %></span>
                 </a>
             </li>
             <li <% if(is_current('donate')){ %> <%- "class=active" %> <% } %>>
                 <a href="<%= config.root %><%- 'donate/' %>">
-                    <i class="iconfont icon-biaoqian1"></i>
+                    <i class="iconfont icon-donate"></i>
                     <span><%= __('nav.donate') %></span>
                 </a>
             </li>
             <%if(config.search && config.search.path){%>
             <li>
                 <a id="search">
-                    <i class="iconfont icon-sousuo1"></i>
+                    <i class="iconfont icon-search"></i>
                     <span><%= __('nav.search') %></span>
                 </a>
             </li>
@@ -62,7 +62,7 @@
 <div class="search-field" id="search-field">
     <div class="search-container">
         <div class="search-input">
-            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <span id="esc-search"> <i class="icon-back iconfont"></i></span>
             <input id="search-input"/>
             <span id="begin-search"><%= __('search.search') %></span>
         </div>
