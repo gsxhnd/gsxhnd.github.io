@@ -71,13 +71,6 @@ pagination_dir: page
 
 theme: aircloud
 
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  - type: git
-    repo: git@e.coding.net:gsxhnd/archive/blog.git
-    branch: master
-
 # SNS settings
 # 一些社交平台地址，支持以下几种：
 weibo_username: 2419493220
