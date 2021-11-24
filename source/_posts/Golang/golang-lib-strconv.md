@@ -14,9 +14,9 @@ date: 2020/05/26 13:29
 import "strconv"  //先导入strconv包
 
 // int到string
-	i := 10
-	s := strconv.Itoa(i)
-	fmt.Printf("%T, %v\n", s, s)
+i := 10
+s := strconv.Itoa(i)
+fmt.Printf("%T, %v\n", s, s)
 //Output:
 //
 //string, 10
