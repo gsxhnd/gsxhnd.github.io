@@ -12,7 +12,6 @@ sidebar-avatar: /img/account.png
 avatar_style:
   radius: true
 
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://www.gsxhnd.xyz
 root: /
 permalink: :year/:month/:day/:title/
@@ -78,7 +77,6 @@ zhihu_username: gsxhnd
 github_username: gsxhnd
 linkedin_username: gsxhnd
 twitter_username: gsxhnd_Wu
-# facebook_username: xiaotao.nie.5
 
 # Search 确保_config中只有一个search，否则会冲突。
 search:
