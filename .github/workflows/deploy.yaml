@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["master"] # 设置为你的源码分支，可能是 main、master 或 hexo
+    branches: ["master"]
 
 jobs:
   build:
@@ -27,16 +27,16 @@ jobs:
       #   uses: actions/upload-pages-artifact@v3
       #   with:
       #       path: ./public
-  # deploy:
-  #     needs: build
-  #     permissions:
-  #         pages: write
-  #         id-token: write
-  #     environment:
-  #         name: github-pages
-  #         url: ${{ steps.deployment.outputs.page_url }}
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #         - name: Deploy to GitHub Pages
-  #           id: deployment
-  #           uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
