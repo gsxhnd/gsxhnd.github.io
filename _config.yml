@@ -103,4 +103,7 @@ theme: cactus
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: 'git'
+  repo: "git@github.com:gsxhnd/gsxhnd.github.io.git"
+  branch: "gh-pages"
+  token: $GITHUB_TOKEN
