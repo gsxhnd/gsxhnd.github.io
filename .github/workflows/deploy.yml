@@ -5,7 +5,7 @@ on:
         branches: ["master"] # 设置为你的源码分支，可能是 main、master 或 hexo
 
 jobs:
-    build-and-deploy:
+    build:
         runs-on: ubuntu-latest
 
         steps:
@@ -22,9 +22,16 @@ jobs:
 
             - name: Install dependencies
               run: npm install
-
-            - name: Deploy blog
-              run: |
-                  npm run clean
-                  npm run build
-                  npm run deploy
+    deploy:
+        needs: build
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
