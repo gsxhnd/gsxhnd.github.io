@@ -5,13 +5,14 @@ tags:
 category: Vue
 published: 2019-2-21 21:52:00
 ---
+<!-- markdownlint-disable MD025 -->
 
 # 简介
 
 1 在 vue 路由模式为 history 的时候，刷新页面会出现 404 问题。我们只需要在服务器配置如果 URL 匹配不到任何静态资源，就跳转到默认的 index.html。
 2 需要反响代理，实现 AJAX 请求。
 
-```
+```text
 exampe.com {
     root /root/html
     gzip
