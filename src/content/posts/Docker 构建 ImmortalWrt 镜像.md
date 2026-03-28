@@ -4,8 +4,9 @@ created: 2026-01-12 14:54:42
 published: 2026-01-12 14:54:42
 tags:
   - Docker
+  - NAS
   - ImmortalWrt
-description: "Docker 构建和运行 ImmortalWrt"
+description: "使用 Docker 构建和运行 ImmortalWrt 镜像，在飞牛或其他 NAS 系统上实现旁路由模式。"
 ---
 <!-- markdownlint-disable MD025 -->
 
@@ -28,7 +29,7 @@ wget -O rootfs.tar.gz https://downloads.immortalwrt.org/releases/24.10.3/targets
 gzip -d rootfs.tar.gz
 ```
 
-### 创建一个Dockerfile文件
+### 创建一个 Dockerfile 文件
 
 ```Dockerfile
 FROM scratch
@@ -48,7 +49,7 @@ docker build -t immortalwrt .
 ip link show
 ```
 
-不用开启混杂模式 因为 `macvlan` 网络与 `docker0` 的桥接网络完全不同，它不依赖 `docker0` ，而是直接与宿主机的物理接口
+不用开启混杂模式，因为 `macvlan` 网络与 `docker0` 的桥接网络完全不同，它不依赖 `docker0`，而是直接与宿主机的物理接口。
 
 ```shell
 # 假设网卡名称为eth0
@@ -71,7 +72,7 @@ ip addr add 192.168.66.2/24 dev macvlan-shim
 ip link set macvlan-shim up
 ```
 
-> 注意检查上述ip地址 `192.168.66.2` 确保它没有被其他设备占用
+> 注意检查上述 IP 地址 `192.168.66.2`，确保它没有被其他设备占用。
 
 - `macvlan-shim` 是虚拟接口的名称，你可以自定义。
 - `192.168.66.2/24` 是给宿主机虚拟接口分配的 IP 地址，应位于 `192.168.66.0/24` 子网内，且不冲突。
@@ -92,10 +93,10 @@ docker run --name immortalwrt -d --network macnet --privileged immortalwrt-image
 - `immortalwrt` 为docker容器名称
 - `immortalwrt-image` 是docker镜像名称（上述docker build 所得）
 
-### 在ImmortalWrt 命令行里设置静态ip
+### 在 ImmortalWrt 命令行里设置静态 IP
 
 ```shell
-# 运行后 ，进入容器，容器内就是 immortalwrt 系统
+# 运行后，进入容器，容器内就是 ImmortalWrt 系统
 docker exec -it immortalwrt sh
 vi /etc/config/network
 ```
@@ -111,7 +112,7 @@ config interface 'lan'
         option dns '223.5.5.5 1.1.1.1'
 ```
 
-### 为了避免大家使用vim编辑器，你可以复制如下代码到命令
+### 不想用 Vim 的话，可以直接覆盖配置
 
 ```shell
 cat <<EOF > /etc/config/network
@@ -135,22 +136,22 @@ config interface 'lan'
 EOF
 ```
 
-上述代码中 `192.168.66.88` 是我设置的ip地址，你要 **根据自己主路由器的ip网段** 来调整。
+上述代码中 `192.168.66.88` 是我设置的 IP 地址，你要 **根据自己主路由器的 IP 网段** 来调整。
 
-### 重启ImmortalWrt的网络
+### 重启 ImmortalWrt 的网络
 
 ```shell
 /etc/init.d/network restart
 ```
 
 ```shell
-# 如果imm没有网 就在宿主机再次执行一次
+# 如果 ImmortalWrt 没有网络，就在宿主机再次执行一次
 ip link set macvlan-shim up
 ```
 
 ## 安装依赖
 
-在docker 版的immortalwrt中安装一些必备插件
+在 Docker 版的 ImmortalWrt 中安装一些必备插件。
 
 ```shell
 opkg update
@@ -160,10 +161,10 @@ opkg install luci-i18n-argon-config-zh-cn
 opkg install openssh-sftp-server
 # opkg install luci-i18n-samba4-zh-cn
 
-# 安装网络向导和首页(ARM64 & x86-64通用)
+# 安装网络向导和首页（ARM64 与 x86-64 通用）
 is-opkg install luci-i18n-quickstart-zh-cn
 ```
 
 ## Refer
 
-- [如何制作docker版Immortalwrt](https://wkdaily.cpolar.cn/archives/15)
+- [如何制作 Docker 版 ImmortalWrt](https://wkdaily.cpolar.cn/archives/15)
