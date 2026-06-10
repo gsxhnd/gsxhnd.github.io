@@ -32,21 +32,6 @@ export async function getAllTags(): Promise<string[]> {
   return Array.from(tags).sort();
 }
 
-export async function getPostsByYear(): Promise<Record<string, BlogPost[]>> {
-  const posts = await getAllPosts();
-  const grouped: Record<string, BlogPost[]> = {};
-
-  for (const post of posts) {
-    const year = post.data.pubDate.getFullYear().toString();
-    if (!grouped[year]) {
-      grouped[year] = [];
-    }
-    grouped[year].push(post);
-  }
-
-  return grouped;
-}
-
 export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('zh-CN', {
     year: 'numeric',

@@ -5,7 +5,6 @@ import Footer from '../components/Footer.astro';
 import SearchModal from '../components/SearchModal.astro';
 import { siteConfig } from '../config/site';
 import { getAllPosts } from '../utils/content';
-import type { SearchIndexItem } from '../types/search';
 
 interface Props {
   title: string;
@@ -18,14 +17,6 @@ interface Props {
 const { title, description, image, type, isHome = false } = Astro.props;
 
 const posts = await getAllPosts();
-const searchIndex: SearchIndexItem[] = posts.map((post) => ({
-  title: post.data.title,
-  description: post.data.description,
-  category: post.data.category,
-  tags: post.data.tags,
-  pubDate: post.data.pubDate.toISOString(),
-  url: `/blog/${post.id}`,
-}));
 ---
 
 <BaseLayout title={title} description={description} image={image} type={type}>
@@ -41,5 +32,5 @@ const searchIndex: SearchIndexItem[] = posts.map((post) => ({
       <p class="site-note select-none font-light" lang="ja">{siteConfig.note}</p>
     </aside>
   </div>
-  <SearchModal searchIndex={searchIndex} postCount={posts.length} />
+  <SearchModal postCount={posts.length} />
 </BaseLayout>
