@@ -1,145 +1,21 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import PageLayout from '../layouts/PageLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import { getAllPosts, getAllCategories, getAllTags } from '../utils/content';
+import Divider from '../components/Divider.astro';
+import { getAllPosts } from '../utils/content';
 
 const posts = await getAllPosts();
-const recentPosts = posts.slice(0, 6);
-const categories = await getAllCategories();
-const tags = await getAllTags();
 ---
 
-<BaseLayout title="gsxhnd Blog">
-  <Header />
-  
-  <main class="min-h-screen">
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-slate-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 transition-colors duration-300">
-      <div class="absolute inset-0 opacity-30 dark:opacity-20">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-        <div class="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-      </div>
-      
-      <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-        <div class="text-center">
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-slate-50 mb-6 leading-tight">
-            探索技术与<span class="text-blue-600 dark:text-blue-400">思考</span>
-          </h1>
-          <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-            记录前端开发、技术探索与个人成长的点滴。在这里，我分享见解、经验与对未来的思考。
-          </p>
-          <div class="flex flex-wrap items-center justify-center gap-3">
-            <a 
-              href="/blog" 
-              class="px-6 py-3 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
-            >
-              浏览文章
-            </a>
-            <a 
-              href="/search" 
-              class="px-6 py-3 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-            >
-              搜索内容
-            </a>
-          </div>
-        </div>
-        
-        <!-- Stats -->
-        <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-          <div class="text-center p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
-            <div class="text-2xl font-bold text-slate-900 dark:text-slate-50">{posts.length}</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400">文章</div>
-          </div>
-          <div class="text-center p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
-            <div class="text-2xl font-bold text-slate-900 dark:text-slate-50">{categories.length}</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400">分类</div>
-          </div>
-          <div class="text-center p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
-            <div class="text-2xl font-bold text-slate-900 dark:text-slate-50">{tags.length}</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400">标签</div>
-          </div>
-          <div class="text-center p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50">
-            <div class="text-2xl font-bold text-slate-900 dark:text-slate-50">∞</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400">想法</div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Recent Posts -->
-    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-50">最新文章</h2>
-        <a 
-          href="/blog" 
-          class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors text-sm font-medium"
-        >
-          查看全部 →
-        </a>
-      </div>
-      
-      {recentPosts.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recentPosts.map((post) => (
-            <PostCard post={post} />
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-16 text-slate-500 dark:text-slate-400">
-          <p>暂无文章，敬请期待...</p>
-        </div>
-      )}
-    </section>
-    
-    <!-- Categories & Tags -->
-    <section class="border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <!-- Categories -->
-          <div>
-            <h2 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-6">分类</h2>
-            <div class="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <a
-                  href={`/categories/${category}`}
-                  class="px-4 py-2 rounded-lg bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
-                >
-                  {category}
-                </a>
-              ))}
-            </div>
-          </div>
-          
-          <!-- Tags -->
-          <div>
-            <h2 class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-6">热门标签</h2>
-            <div class="flex flex-wrap gap-2">
-              {tags.slice(0, 12).map((tag) => (
-                <a
-                  href={`/tags/${tag}`}
-                  class="px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
-                >
-                  #{tag}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  
-  <Footer />
-</BaseLayout>
-
-<style>
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
-  }
-  .animate-pulse {
-    animation: pulse 4s ease-in-out infinite;
-  }
-</style>
+<PageLayout title="gsxhnd" isHome={true}>
+  {posts.length > 0 ? (
+    posts.map((post, index) => (
+      <>
+        <PostCard post={post} />
+        {index < posts.length - 1 && <Divider />}
+      </>
+    ))
+  ) : (
+    <p class="text-muted py-12 text-center">暂无文章，敬请期待...</p>
+  )}
+</PageLayout>

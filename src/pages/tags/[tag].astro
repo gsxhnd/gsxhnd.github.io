@@ -1,73 +1,32 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import PostCard from '../../components/PostCard.astro';
+import Divider from '../../components/Divider.astro';
 import { getAllPosts, getAllTags } from '../../utils/content';
 
 export async function getStaticPaths() {
   const tags = await getAllTags();
-  return tags.map((tag) => ({
-    params: { tag },
-  }));
+  return tags.map((tag) => ({ params: { tag } }));
 }
 
 const { tag } = Astro.params;
 const allPosts = await getAllPosts();
-const posts = allPosts.filter((post) => post.data.tags.includes(tag));
+const posts = allPosts.filter((post) => post.data.tags.includes(tag!));
 const tags = await getAllTags();
 ---
 
-<BaseLayout title={`标签：${tag}`} description={`查看「${tag}」标签下的所有文章`}>
-  <Header />
-  
-  <main class="min-h-screen">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      <header class="mb-10">
-        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-3">
-          <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">博客</a>
-          <span>/</span>
-          <a href="/tags" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">标签</a>
-        </div>
-        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
-          #{tag}
-        </h1>
-        <p class="text-slate-600 dark:text-slate-300">
-          该标签下共有 {posts.length} 篇文章
-        </p>
-      </header>
-      
-      <!-- Tag Filter -->
-      <div class="flex flex-wrap gap-2 mb-8">
-        {tags.map((t) => (
-          <a
-            href={`/tags/${t}`}
-            class={`px-3 py-1.5 rounded-full text-sm transition-colors ${
-              t === tag
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-            }`}
-          >
-            #{t}
-          </a>
-        ))}
-      </div>
-      
-      {posts.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
-            <PostCard post={post} />
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-20">
-          <div class="text-6xl mb-4">🏷️</div>
-          <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">暂无文章</h2>
-          <p class="text-slate-500 dark:text-slate-400">该标签下暂无文章</p>
-        </div>
-      )}
-    </div>
-  </main>
-  
-  <Footer />
-</BaseLayout>
+<PageLayout title={`标签：${tag}`} description={`查看「${tag}」标签下的所有文章`}>
+  <PageHeader title={`标签: ${tag}`} description={`共 ${posts.length} 篇文章`} />
+  <div class="mb-8 flex flex-wrap justify-center gap-2">
+    {tags.map((t) => (
+      <a href={`/tags/${t}`} class:list={['tag-pill', { 'is-active': t === tag }]}>{t}</a>
+    ))}
+  </div>
+  {posts.map((post, index) => (
+    <>
+      <PostCard post={post} />
+      {index < posts.length - 1 && <Divider />}
+    </>
+  ))}
+</PageLayout>

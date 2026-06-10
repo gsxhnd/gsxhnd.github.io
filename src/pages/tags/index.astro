@@ -1,60 +1,21 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { getAllTags, getAllPosts } from '../../utils/content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getAllTags, getAllPosts, countTags } from '../../utils/content';
 
 const tags = await getAllTags();
 const posts = await getAllPosts();
-
-// Count posts per tag
-const tagCounts: Record<string, number> = {};
-for (const post of posts) {
-  for (const tag of post.data.tags) {
-    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-  }
-}
-
-const maxCount = Math.max(...Object.values(tagCounts), 1);
-const minCount = Math.min(...Object.values(tagCounts), 1);
-
-function getTagSize(count: number): string {
-  const ratio = (count - minCount) / (maxCount - minCount || 1);
-  if (ratio > 0.7) return 'text-xl px-5 py-2.5';
-  if (ratio > 0.4) return 'text-lg px-4 py-2';
-  if (ratio > 0.1) return 'text-base px-3.5 py-1.5';
-  return 'text-sm px-3 py-1.5';
-}
+const tagCounts = countTags(posts);
 ---
 
-<BaseLayout title="标签" description="浏览所有文章标签">
-  <Header />
-  
-  <main class="min-h-screen">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      <header class="mb-10">
-        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
-          标签云
-        </h1>
-        <p class="text-slate-600 dark:text-slate-300">
-          共 {tags.length} 个标签，{posts.length} 篇文章
-        </p>
-      </header>
-      
-      <div class="flex flex-wrap gap-3 justify-center">
-        {tags.map((tag) => (
-          <a
-            href={`/tags/${tag}`}
-            class={`rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-md transition-all duration-300 ${getTagSize(tagCounts[tag] || 1)}`}
-            title={`${tagCounts[tag] || 0} 篇文章`}
-          >
-            #{tag}
-            <span class="ml-1 text-slate-400 dark:text-slate-500 text-xs">{tagCounts[tag] || 0}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </main>
-  
-  <Footer />
-</BaseLayout>
+<PageLayout title="标签" description="浏览所有文章标签">
+  <PageHeader title="标签" description={`共 ${tags.length} 个标签`} />
+  <div class="flex flex-wrap justify-center gap-2">
+    {tags.map((tag) => (
+      <a href={`/tags/${tag}`} class="tag-pill">
+        {tag}
+        <span class="ml-1 text-xs opacity-60">{tagCounts[tag] ?? 0}</span>
+      </a>
+    ))}
+  </div>
+</PageLayout>

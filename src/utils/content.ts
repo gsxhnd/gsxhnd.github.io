@@ -62,3 +62,38 @@ export function formatDateShort(date: Date): string {
     day: '2-digit',
   }).format(date);
 }
+
+export function countBy<T>(items: T[], getKey: (item: T) => string): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const item of items) {
+    const key = getKey(item);
+    counts[key] = (counts[key] ?? 0) + 1;
+  }
+  return counts;
+}
+
+export function countTags(posts: BlogPost[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const post of posts) {
+    for (const tag of post.data.tags) {
+      counts[tag] = (counts[tag] ?? 0) + 1;
+    }
+  }
+  return counts;
+}
+
+export function groupPostsByYear(posts: BlogPost[]): { year: string; posts: BlogPost[] }[] {
+  const grouped: { year: string; posts: BlogPost[] }[] = [];
+  let currentYear = '';
+
+  for (const post of posts) {
+    const year = String(post.data.pubDate.getFullYear());
+    if (year !== currentYear) {
+      currentYear = year;
+      grouped.push({ year, posts: [] });
+    }
+    grouped[grouped.length - 1].posts.push(post);
+  }
+
+  return grouped;
+}

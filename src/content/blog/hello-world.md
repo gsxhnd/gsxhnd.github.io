@@ -4,7 +4,6 @@ description: '这是我的第一篇博客文章，欢迎来到我的个人博客
 pubDate: 2026-05-20
 category: '随笔'
 tags: ['介绍', '博客']
-cover: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&q=80'
 ---
 
 # 欢迎来到我的博客
