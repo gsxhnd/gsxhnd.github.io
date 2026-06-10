@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getAllPosts, getAllCategories } from '../../utils/content';
+
+export async function getStaticPaths() {
+  const categories = await getAllCategories();
+  return categories.map((category) => ({
+    params: { category },
+  }));
+}
+
+const { category } = Astro.params;
+const allPosts = await getAllPosts();
+const posts = allPosts.filter((post) => post.data.category === category);
+const categories = await getAllCategories();
+---
+
+<BaseLayout title={`分类：${category}`} description={`查看「${category}」分类下的所有文章`}>
+  <Header />
+  
+  <main class="min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <header class="mb-10">
+        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-3">
+          <a href="/blog" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">博客</a>
+          <span>/</span>
+          <span>分类</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
+          {category}
+        </h1>
+        <p class="text-slate-600 dark:text-slate-300">
+          该分类下共有 {posts.length} 篇文章
+        </p>
+      </header>
+      
+      <!-- Category Filter -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        {categories.map((cat) => (
+          <a
+            href={`/categories/${cat}`}
+            class={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              cat === category
+                ? 'bg-blue-600 text-white'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+            }`}
+          >
+            {cat}
+          </a>
+        ))}
+      </div>
+      
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <div class="text-6xl mb-4">📂</div>
+          <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">暂无文章</h2>
+          <p class="text-slate-500 dark:text-slate-400">该分类下暂无文章</p>
+        </div>
+      )}
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>

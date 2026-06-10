@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getPostsByYear, formatDate, formatDateShort } from '../utils/content';
+
+const groupedPosts = await getPostsByYear();
+const years = Object.keys(groupedPosts).sort((a, b) => parseInt(b) - parseInt(a));
+const totalPosts = Object.values(groupedPosts).reduce((sum, posts) => sum + posts.length, 0);
+---
+
+<BaseLayout title="归档" description="按时间轴浏览所有文章">
+  <Header />
+  
+  <main class="min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <header class="mb-10">
+        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
+          文章归档
+        </h1>
+        <p class="text-slate-600 dark:text-slate-300">
+          共 {totalPosts} 篇文章，{years.length} 个年份
+        </p>
+      </header>
+      
+      <div class="relative">
+        <!-- Timeline Line -->
+        <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700"></div>
+        
+        {years.map((year) => (
+          <div class="mb-12 last:mb-0">
+            <!-- Year Marker -->
+            <div class="flex items-center gap-4 mb-6">
+              <div class="relative z-10 w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm sm:text-base font-bold shadow-lg shadow-blue-600/20">
+                {year.slice(2)}
+              </div>
+              <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50">
+                {year} 年
+                <span class="text-sm font-normal text-slate-500 dark:text-slate-400 ml-2">
+                  ({groupedPosts[year].length} 篇)
+                </span>
+              </h2>
+            </div>
+            
+            <!-- Posts for this year -->
+            <div class="ml-12 sm:ml-16 space-y-4">
+              {groupedPosts[year].map((post) => (
+                <a
+                  href={`/blog/${post.id}`}
+                  class="group block p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md transition-all duration-300"
+                >
+                  <div class="flex items-start gap-4">
+                    <time class="shrink-0 text-sm text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+                      {formatDateShort(post.data.pubDate)}
+                    </time>
+                    <div class="min-w-0">
+                      <h3 class="font-semibold text-slate-900 dark:text-slate-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
+                        {post.data.title}
+                      </h3>
+                      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">
+                        {post.data.description}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>

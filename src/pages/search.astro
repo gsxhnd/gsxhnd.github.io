@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getAllPosts, formatDate } from '../utils/content';
+
+const posts = await getAllPosts();
+const searchIndex = posts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  category: post.data.category,
+  tags: post.data.tags,
+  pubDate: post.data.pubDate.toISOString(),
+  url: `/blog/${post.id}`,
+}));
+---
+
+<BaseLayout title="搜索" description="搜索博客文章">
+  <Header />
+  
+  <main class="min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <header class="mb-10">
+        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">
+          搜索文章
+        </h1>
+        <p class="text-slate-600 dark:text-slate-300">
+          在 {posts.length} 篇文章中搜索你感兴趣的内容
+        </p>
+      </header>
+      
+      <!-- Search Input -->
+      <div class="relative mb-8">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="输入关键词搜索..."
+          class="w-full px-5 py-4 pl-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg"
+          autocomplete="off"
+        />
+        <svg 
+          class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+        </svg>
+      </div>
+      
+      <!-- Results Count -->
+      <div id="results-info" class="mb-6 text-sm text-slate-500 dark:text-slate-400 hidden">
+        找到 <span id="results-count" class="font-medium text-slate-900 dark:text-slate-50">0</span> 个结果
+      </div>
+      
+      <!-- Results -->
+      <div id="search-results" class="space-y-4">
+        <!-- Results will be populated by JavaScript -->
+      </div>
+      
+      <!-- Empty State -->
+      <div id="empty-state" class="text-center py-16 hidden">
+        <div class="text-6xl mb-4">🔍</div>
+        <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">未找到结果</h2>
+        <p class="text-slate-500 dark:text-slate-400">尝试使用其他关键词搜索</p>
+      </div>
+      
+      <!-- Initial State -->
+      <div id="initial-state" class="text-center py-16">
+        <div class="text-6xl mb-4">✨</div>
+        <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">开始搜索</h2>
+        <p class="text-slate-500 dark:text-slate-400">输入关键词查找文章</p>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<script define:vars={{ searchIndex }}>
+  let fuse = null;
+  
+  // Simple fuzzy search without fuse.js library for now
+  // We'll implement fuse.js when the dependency is available
+  function search(query) {
+    if (!query.trim()) return [];
+    
+    const lowerQuery = query.toLowerCase();
+    return searchIndex.filter((post) => {
+      const text = `${post.title} ${post.description} ${post.category} ${post.tags.join(' ')}`.toLowerCase();
+      return text.includes(lowerQuery);
+    }).map((post) => ({ item: post }));
+  }
+  
+  function renderResults(results) {
+    const resultsContainer = document.getElementById('search-results');
+    const resultsInfo = document.getElementById('results-info');
+    const resultsCount = document.getElementById('results-count');
+    const emptyState = document.getElementById('empty-state');
+    const initialState = document.getElementById('initial-state');
+    
+    if (!resultsContainer) return;
+    
+    if (results.length === 0) {
+      resultsContainer.innerHTML = '';
+      resultsInfo?.classList.add('hidden');
+      emptyState?.classList.remove('hidden');
+      initialState?.classList.add('hidden');
+      return;
+    }
+    
+    resultsInfo?.classList.remove('hidden');
+    if (resultsCount) resultsCount.textContent = results.length;
+    emptyState?.classList.add('hidden');
+    initialState?.classList.add('hidden');
+    
+    resultsContainer.innerHTML = results.map(({ item }) => `
+      <a
+        href="${item.url}"
+        class="group block p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md transition-all duration-300"
+      >
+        <div class="flex items-center gap-2 mb-2 text-sm text-slate-500 dark:text-slate-400">
+          <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 text-xs">
+            ${item.category}
+          </span>
+          <span>·</span>
+          <time>${new Date(item.pubDate).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        </div>
+        <h3 class="font-semibold text-slate-900 dark:text-slate-50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
+          ${item.title}
+        </h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">
+          ${item.description}
+        </p>
+        ${item.tags.length > 0 ? `
+          <div class="flex flex-wrap gap-1.5 mt-3">
+            ${item.tags.map(tag => `
+              <span class="px-2 py-0.5 text-xs rounded-full bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+                #${tag}
+              </span>
+            `).join('')}
+          </div>
+        ` : ''}
+      </a>
+    `).join('');
+  }
+  
+  const searchInput = document.getElementById('search-input');
+  
+  searchInput?.addEventListener('input', (e) => {
+    const query = e.target.value;
+    const emptyState = document.getElementById('empty-state');
+    const initialState = document.getElementById('initial-state');
+    const resultsInfo = document.getElementById('results-info');
+    const resultsContainer = document.getElementById('search-results');
+    
+    if (!query.trim()) {
+      resultsContainer.innerHTML = '';
+      resultsInfo?.classList.add('hidden');
+      emptyState?.classList.add('hidden');
+      initialState?.classList.remove('hidden');
+      return;
+    }
+    
+    const results = search(query);
+    renderResults(results);
+  });
+  
+  // Focus search input on page load
+  searchInput?.focus();
+</script>
