@@ -118,6 +118,13 @@ body {
   color: var(--color-muted-light);
 }
 
+.meta-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
 .text-body-secondary {
   color: var(--color-body-secondary);
 }

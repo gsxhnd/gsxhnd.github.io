@@ -12,8 +12,6 @@ export const siteConfig = {
   subtitle: "记录技术与思考的点滴",
   description: "一个基于 Astro 构建的个人博客",
   since: 2024,
-  seal: true,
-  sealText: "白",
   note: "白は、余白の名。",
   darkMode: true,
   menu: [
@@ -28,6 +26,3 @@ export const siteConfig = {
     rss: "/rss.xml",
   },
 } as const;
-
-export const SEAL_PATH_D =
-  "M15,12 Q50,5 85,12 Q95,50 88,88 Q50,95 12,88 Q5,50 15,12 Z";

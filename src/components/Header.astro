@@ -1,6 +1,5 @@
 ---
 import { siteConfig } from '../consts';
-import Seal from './Seal.astro';
 import Sun from '@lucide/astro/icons/sun';
 import Moon from '@lucide/astro/icons/moon';
 import Rss from '@lucide/astro/icons/rss';
@@ -23,15 +22,10 @@ function isNavActive(url: string): boolean {
 <header class="relative">
   <div class="relative flex items-start justify-center">
     <div class="w-full max-w-full text-center">
-      <div class="flex items-center justify-center gap-2 sm:relative sm:inline-flex">
+      <div class="flex items-center justify-center gap-2">
         <TitleTag class="site-title">
           <a href="/">{siteConfig.title}</a>
         </TitleTag>
-        {siteConfig.seal && (
-          <div class="shrink-0 sm:absolute sm:left-full sm:top-1/2 sm:ml-4 sm:-translate-y-1/2">
-            <Seal text={siteConfig.sealText} />
-          </div>
-        )}
       </div>
       {siteConfig.subtitle && <p class="site-subtitle">{siteConfig.subtitle}</p>}
       <div class="mt-3 flex flex-wrap justify-center gap-2 sm:mt-4">

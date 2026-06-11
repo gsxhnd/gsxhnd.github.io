@@ -1,6 +1,9 @@
 ---
 import { formatDate } from '../utils/content';
 import type { BlogPost } from '../utils/content';
+import Clock from '@lucide/astro/icons/clock';
+import Folder from '@lucide/astro/icons/folder';
+import Tag from '@lucide/astro/icons/tag';
 
 interface Props {
   post: BlogPost;
@@ -15,23 +18,32 @@ const { title, description, created, category, tags } = post.data;
     <h2 class="post-title">
       <a href={`/blog/${post.id}`}>{title}</a>
     </h2>
-    <p class="text-muted mt-2 text-sm">
-      <time datetime={created.toISOString()}>{formatDate(created)}</time>
+    <p class="text-muted mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
+      <span class="inline-flex items-center gap-1">
+        <Clock class="meta-icon" aria-hidden="true" />
+        <time datetime={created.toISOString()}>{formatDate(created)}</time>
+      </span>
       {category && (
         <>
-          <span class="text-muted-light mx-2">·</span>
-          <a href={`/categories/${category}`} class="link-muted">{category}</a>
+          <span class="text-muted-light" aria-hidden="true">·</span>
+          <a href={`/categories/${category}`} class="link-muted inline-flex items-center gap-1">
+            <Folder class="meta-icon" aria-hidden="true" />
+            {category}
+          </a>
         </>
       )}
       {tags.length > 0 && (
         <>
-          <span class="text-muted-light mx-2">·</span>
-          {tags.map((tag, i) => (
-            <>
-              <a href={`/tags/${tag}`} class="link-muted">{tag}</a>
-              {i < tags.length - 1 && <span class="text-muted-light">, </span>}
-            </>
-          ))}
+          <span class="text-muted-light" aria-hidden="true">·</span>
+          <span class="inline-flex items-center gap-1">
+            <Tag class="meta-icon" aria-hidden="true" />
+            {tags.map((tag, i) => (
+              <>
+                <a href={`/tags/${tag}`} class="link-muted">{tag}</a>
+                {i < tags.length - 1 && <span class="text-muted-light">, </span>}
+              </>
+            ))}
+          </span>
         </>
       )}
     </p>
