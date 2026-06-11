@@ -6,14 +6,14 @@ import { formatDate } from '../utils/content';
 interface Props {
   title: string;
   description: string;
-  pubDate: Date;
-  updatedDate?: Date;
-  category: string;
+  created: Date;
+  updated?: Date;
+  category?: string;
   tags: string[];
   cover?: string;
 }
 
-const { title, description, pubDate, updatedDate, category, tags, cover } = Astro.props;
+const { title, description, created, updated, category, tags, cover } = Astro.props;
 ---
 
 <PageLayout title={title} description={description} image={cover} type="article">
@@ -27,15 +27,19 @@ const { title, description, pubDate, updatedDate, category, tags, cover } = Astr
     <h1 class="section-title">{title}</h1>
     <Divider class="my-6" />
     <p class="text-muted text-sm">
-      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-      {updatedDate && (
+      <time datetime={created.toISOString()}>{formatDate(created)}</time>
+      {updated && (
         <>
           <span class="text-muted-light mx-2">·</span>
-          <span>更新于 {formatDate(updatedDate)}</span>
+          <span>更新于 {formatDate(updated)}</span>
         </>
       )}
-      <span class="text-muted-light mx-2">·</span>
-      <a href={`/categories/${category}`} class="link-muted">{category}</a>
+      {category && (
+        <>
+          <span class="text-muted-light mx-2">·</span>
+          <a href={`/categories/${category}`} class="link-muted">{category}</a>
+        </>
+      )}
     </p>
     {description && <p class="text-body-secondary mt-4">{description}</p>}
   </header>

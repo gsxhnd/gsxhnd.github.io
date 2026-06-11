@@ -1,8 +1,8 @@
 export interface SearchIndexItem {
   title: string;
   description: string;
-  category: string;
+  category?: string;
   tags: string[];
-  pubDate: string;
+  created: string;
   url: string;
 }

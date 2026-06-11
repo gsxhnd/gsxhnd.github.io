@@ -7,7 +7,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   const posts = await getCollection('blog');
   return posts
     .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    .sort((a, b) => b.data.created.valueOf() - a.data.created.valueOf());
 }
 
 export async function getPostsByCategory(category: string): Promise<BlogPost[]> {
@@ -22,7 +22,9 @@ export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
 
 export async function getAllCategories(): Promise<string[]> {
   const posts = await getAllPosts();
-  const categories = new Set(posts.map((post) => post.data.category));
+  const categories = new Set(
+    posts.map((post) => post.data.category).filter((category): category is string => Boolean(category)),
+  );
   return Array.from(categories).sort();
 }
 
@@ -72,7 +74,7 @@ export function groupPostsByYear(posts: BlogPost[]): { year: string; posts: Blog
   let currentYear = '';
 
   for (const post of posts) {
-    const year = String(post.data.pubDate.getFullYear());
+    const year = String(post.data.created.getFullYear());
     if (year !== currentYear) {
       currentYear = year;
       grouped.push({ year, posts: [] });

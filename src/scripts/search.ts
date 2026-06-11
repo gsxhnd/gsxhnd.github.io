@@ -27,7 +27,7 @@ function renderResults(container: HTMLElement, results: SearchIndexItem[]) {
       (item) => `
         <a href="${escapeHtml(item.url)}" class="search-result-card">
           <h3>${escapeHtml(item.title)}</h3>
-          <p class="meta">${formatDate(item.pubDate)} · ${escapeHtml(item.category)}</p>
+          <p class="meta">${formatDate(item.created)} · ${escapeHtml(item.category ?? '')}</p>
           <p class="desc">${escapeHtml(item.description)}</p>
         </a>
       `,

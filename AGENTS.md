@@ -22,8 +22,9 @@ No linter, formatter, or test runner is configured. `npm run build` is the only 
 | Path | Purpose |
 |------|---------|
 | `src/content/blog/` | Markdown/MDX blog posts (glob-loaded collection) |
-| `src/content.config.ts` | Collection schema (Zod): title, description, pubDate, category, tags, draft, cover |
-| `src/config/site.ts` | Site-wide constants (title, menu, social, theming) |
+| `src/content.config.ts` | Collection schema (Zod): title, description, created, category, tags, draft, cover |
+| `astro.config.ts` | Astro build config; `site` URL imported from `src/consts.ts` |
+| `src/consts.ts` | Site-wide constants (title, menu, social, theming, `SITE_URL`) |
 | `src/utils/content.ts` | Shared content helpers — always use `getAllPosts()` instead of raw `getCollection('blog')` so draft filtering and sorting stay consistent |
 | `src/pages/api/search.json.ts` | Static JSON endpoint for client-side search |
 | `src/layouts/BaseLayout.astro` | Root HTML shell (meta, OG, theme script) |
@@ -44,8 +45,8 @@ No linter, formatter, or test runner is configured. `npm run build` is the only 
 ```yaml
 title: string        # required
 description: string  # required
-pubDate: date        # required
-updatedDate: date    # optional
+created: date        # required
+updated: date        # optional
 category: string     # required, single category
 tags: string[]       # defaults to []
 draft: boolean       # defaults to false

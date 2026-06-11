@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, category, tags } = post.data;
+const { title, description, created, category, tags } = post.data;
 ---
 
 <article class="py-2">
@@ -16,9 +16,13 @@ const { title, description, pubDate, category, tags } = post.data;
       <a href={`/blog/${post.id}`}>{title}</a>
     </h2>
     <p class="text-muted mt-2 text-sm">
-      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-      <span class="text-muted-light mx-2">·</span>
-      <a href={`/categories/${category}`} class="link-muted">{category}</a>
+      <time datetime={created.toISOString()}>{formatDate(created)}</time>
+      {category && (
+        <>
+          <span class="text-muted-light mx-2">·</span>
+          <a href={`/categories/${category}`} class="link-muted">{category}</a>
+        </>
+      )}
       {tags.length > 0 && (
         <>
           <span class="text-muted-light mx-2">·</span>

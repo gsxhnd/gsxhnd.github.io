@@ -4,11 +4,13 @@ export interface NavItem {
   target?: '_blank';
 }
 
+/** Canonical site URL — also referenced by astro.config.ts `site` option. */
+export const SITE_URL = 'https://gsxhnd.github.io';
+
 export const siteConfig = {
   title: 'gsxhnd',
   subtitle: '记录技术与思考的点滴',
   description: '一个基于 Astro 构建的个人博客',
-  url: 'https://gsxhnd.github.io',
   since: 2024,
   seal: true,
   sealText: '白',

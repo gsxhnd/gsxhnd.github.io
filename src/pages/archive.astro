@@ -25,8 +25,8 @@ const grouped = groupPostsByYear(posts);
         <div class="space-y-4">
           {yearPosts.map((post) => (
             <article class="archive-item group">
-              <time datetime={post.data.pubDate.toISOString()} class="oldstyle-nums">
-                {formatDateShort(post.data.pubDate).replace(/-/g, '/')}
+              <time datetime={post.data.created.toISOString()} class="oldstyle-nums">
+                {formatDateShort(post.data.created).replace(/-/g, '/')}
               </time>
               <h3>
                 <a href={`/blog/${post.id}`} class="link-underline">{post.data.title}</a>
