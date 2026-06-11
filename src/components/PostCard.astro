@@ -1,0 +1,57 @@
+---
+import { formatDate } from '../utils/content';
+import type { BlogPost } from '../utils/content';
+import Clock from '@lucide/astro/icons/clock';
+import Folder from '@lucide/astro/icons/folder';
+import Tag from '@lucide/astro/icons/tag';
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { title, description, created, category, tags } = post.data;
+---
+
+<article class="py-2">
+  <header class="mb-4 text-center">
+    <h2 class="post-title">
+      <a href={`/blog/${post.id}`}>{title}</a>
+    </h2>
+    <p class="text-muted mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
+      <span class="inline-flex items-center gap-1">
+        <Clock class="meta-icon" aria-hidden="true" />
+        <time datetime={created.toISOString()}>{formatDate(created)}</time>
+      </span>
+      {category && (
+        <>
+          <span class="text-muted-light" aria-hidden="true">·</span>
+          <a href={`/categories/${category}`} class="link-muted inline-flex items-center gap-1">
+            <Folder class="meta-icon" aria-hidden="true" />
+            {category}
+          </a>
+        </>
+      )}
+      {tags.length > 0 && (
+        <>
+          <span class="text-muted-light" aria-hidden="true">·</span>
+          <span class="inline-flex items-center gap-1">
+            <Tag class="meta-icon" aria-hidden="true" />
+            {tags.map((tag, i) => (
+              <>
+                <a href={`/tags/${tag}`} class="link-muted">{tag}</a>
+                {i < tags.length - 1 && <span class="text-muted-light">, </span>}
+              </>
+            ))}
+          </span>
+        </>
+      )}
+    </p>
+  </header>
+  <div class="prose-shiro prose mx-auto">
+    <p>{description}</p>
+  </div>
+  <div class="mt-6 text-center">
+    <a href={`/blog/${post.id}`} class="btn-ink" aria-label={`阅读全文: ${title}`}>阅读全文</a>
+  </div>
+</article>

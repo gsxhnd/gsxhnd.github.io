@@ -1,0 +1,107 @@
+---
+import { siteConfig } from '../consts';
+import Sun from '@lucide/astro/icons/sun';
+import Moon from '@lucide/astro/icons/moon';
+import Rss from '@lucide/astro/icons/rss';
+import Search from '@lucide/astro/icons/search';
+import ChevronDown from '@lucide/astro/icons/chevron-down';
+
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = false } = Astro.props;
+const currentPath = Astro.url.pathname;
+const TitleTag = isHome ? 'h1' : 'p';
+
+function isNavActive(url: string): boolean {
+  return currentPath === url || (url !== '/' && currentPath.startsWith(url));
+}
+---
+
+<header class="relative">
+  <div class="relative flex items-start justify-center">
+    <div class="w-full max-w-full text-center">
+      <div class="flex items-center justify-center gap-2">
+        <TitleTag class="site-title">
+          <a href="/">{siteConfig.title}</a>
+        </TitleTag>
+      </div>
+      {siteConfig.subtitle && <p class="site-subtitle">{siteConfig.subtitle}</p>}
+      <div class="mt-3 flex flex-wrap justify-center gap-2 sm:mt-4">
+        {siteConfig.darkMode && (
+          <button id="theme-toggle" type="button" class="header-pill-btn" aria-label="切换深色模式">
+            <Sun id="icon-light" class="size-3.5" />
+            <Moon id="icon-dark" class="size-3.5 hidden" />
+          </button>
+        )}
+        <a href={siteConfig.social.rss} class="header-pill-btn" aria-label="RSS">
+          <Rss class="size-3.5" />
+        </a>
+        <button id="search-open" type="button" class="header-pill-btn" aria-label="搜索">
+          <Search class="size-3.5" />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="mt-6 sm:mt-8 md:mt-10" aria-label="主导航">
+  <div class="flex items-center justify-center md:hidden">
+    <button
+      id="menu-btn"
+      type="button"
+      class="nav-menu-btn"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="text-base leading-none tracking-widest">菜单</span>
+      <ChevronDown
+        id="menu-chevron"
+        class="text-muted-light size-4 transition-transform duration-200"
+      />
+    </button>
+  </div>
+
+  <div class="hidden md:block">
+    <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 text-base">
+      {siteConfig.menu.map((item, index) => (
+        <>
+          <li>
+            <a
+              href={item.url}
+              class:list={['nav-link', { 'is-active': isNavActive(item.url) }]}
+            >
+              {item.name}
+            </a>
+          </li>
+          {index < siteConfig.menu.length - 1 && (
+            <li class="nav-separator" role="separator" aria-hidden="true">/</li>
+          )}
+        </>
+      ))}
+    </ul>
+  </div>
+
+  <div id="mobile-menu" class="menu-panel mt-4 md:hidden" data-open="false">
+    <ul class="nav-mobile-panel">
+      {siteConfig.menu.map((item, index) => (
+        <>
+          <li>
+            <a href={item.url} class="nav-mobile-link">{item.name}</a>
+          </li>
+          {index < siteConfig.menu.length - 1 && (
+            <li class="nav-mobile-divider" role="separator" aria-hidden="true"></li>
+          )}
+        </>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  import { initMobileMenu, initThemeToggle } from '../scripts/site';
+
+  initThemeToggle();
+  initMobileMenu();
+</script>

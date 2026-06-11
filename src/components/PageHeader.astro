@@ -1,0 +1,17 @@
+---
+import Divider from './Divider.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  class?: string;
+}
+
+const { title, description, class: className = 'mb-10' } = Astro.props;
+---
+
+<header class:list={['text-center', className]}>
+  <h1 class="section-title">{title}</h1>
+  <Divider />
+  {description && <p class="text-muted text-sm">{description}</p>}
+</header>

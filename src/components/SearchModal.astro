@@ -1,0 +1,47 @@
+---
+import X from '@lucide/astro/icons/x';
+
+interface Props {
+  postCount: number;
+}
+
+const { postCount } = Astro.props;
+---
+
+<dialog id="search-modal" class="search-modal" aria-labelledby="search-modal-title">
+  <div class="search-modal-panel">
+    <header class="search-modal-header">
+      <h2 id="search-modal-title" class="search-modal-title">搜索</h2>
+      <button id="search-modal-close" type="button" class="search-modal-close" aria-label="关闭搜索">
+        <X class="size-5" />
+      </button>
+    </header>
+    <input
+      id="search-modal-input"
+      type="search"
+      class="search-input"
+      placeholder="输入关键词搜索..."
+      autocomplete="off"
+      autofocus
+    />
+    <p class="search-modal-hint text-muted">在 {postCount} 篇文章中搜索</p>
+    <div id="search-modal-results" class="search-modal-results space-y-3"></div>
+    <p id="search-modal-empty" class="text-muted hidden py-8 text-center">未找到结果</p>
+  </div>
+</dialog>
+
+<script>
+  import { initSearchModal } from '../scripts/search';
+
+  let searchIndex: any[] | null = null;
+
+  async function loadAndInitSearch() {
+    if (!searchIndex) {
+      const res = await fetch('/api/search.json');
+      searchIndex = await res.json();
+    }
+    initSearchModal(searchIndex!);
+  }
+
+  loadAndInitSearch();
+</script>

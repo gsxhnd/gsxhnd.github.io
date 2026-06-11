@@ -1,0 +1,21 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getAllCategories, getAllPosts, countBy } from '../../utils/content';
+
+const categories = await getAllCategories();
+const posts = await getAllPosts();
+const categoryCounts = countBy(posts, (post) => post.data.category);
+---
+
+<PageLayout title="分类" description="浏览所有文章分类">
+  <PageHeader title="分类" description={`共 ${categories.length} 个分类`} />
+  <div class="flex flex-wrap justify-center gap-2">
+    {categories.map((category) => (
+      <a href={`/categories/${category}`} class="tag-pill">
+        {category}
+        <span class="ml-1 text-xs opacity-60">{categoryCounts[category] ?? 0}</span>
+      </a>
+    ))}
+  </div>
+</PageLayout>

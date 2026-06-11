@@ -1,0 +1,32 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PostCard from '../../components/PostCard.astro';
+import Divider from '../../components/Divider.astro';
+import { getAllPosts, getAllCategories } from '../../utils/content';
+
+export async function getStaticPaths() {
+  const categories = await getAllCategories();
+  return categories.map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const allPosts = await getAllPosts();
+const posts = allPosts.filter((post) => post.data.category === category!);
+const categories = await getAllCategories();
+---
+
+<PageLayout title={`分类：${category}`} description={`查看「${category}」分类下的所有文章`}>
+  <PageHeader title={`分类: ${category}`} description={`共 ${posts.length} 篇文章`} />
+  <div class="mb-8 flex flex-wrap justify-center gap-2">
+    {categories.map((cat) => (
+      <a href={`/categories/${cat}`} class:list={['tag-pill', { 'is-active': cat === category }]}>{cat}</a>
+    ))}
+  </div>
+  {posts.map((post, index) => (
+    <>
+      <PostCard post={post} />
+      {index < posts.length - 1 && <Divider />}
+    </>
+  ))}
+</PageLayout>

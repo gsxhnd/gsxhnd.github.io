@@ -1,0 +1,21 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import Divider from '../components/Divider.astro';
+import { getAllPosts } from '../utils/content';
+
+const posts = await getAllPosts();
+---
+
+<PageLayout title="全菜开发" isHome={true}>
+  {posts.length > 0 ? (
+    posts.map((post, index) => (
+      <>
+        <PostCard post={post} />
+        {index < posts.length - 1 && <Divider />}
+      </>
+    ))
+  ) : (
+    <p class="text-muted py-12 text-center">暂无文章，敬请期待...</p>
+  )}
+</PageLayout>

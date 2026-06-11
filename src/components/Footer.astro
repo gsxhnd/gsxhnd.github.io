@@ -1,0 +1,10 @@
+---
+import { siteConfig } from '../consts';
+
+const currentYear = new Date().getFullYear();
+const yearText = siteConfig.since ? `${siteConfig.since}–${currentYear}` : String(currentYear);
+---
+
+<footer class="section-divider blog-footer">
+  <p>&copy; {yearText} {siteConfig.title}</p>
+</footer>

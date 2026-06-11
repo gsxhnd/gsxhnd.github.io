@@ -1,0 +1,77 @@
+---
+import PageLayout from './PageLayout.astro';
+import Divider from '../components/Divider.astro';
+import { formatDate } from '../utils/content';
+import Clock from '@lucide/astro/icons/clock';
+import Folder from '@lucide/astro/icons/folder';
+import Tag from '@lucide/astro/icons/tag';
+import RefreshCw from '@lucide/astro/icons/refresh-cw';
+
+interface Props {
+  title: string;
+  description: string;
+  created: Date;
+  updated?: Date;
+  category?: string;
+  tags: string[];
+  cover?: string;
+}
+
+const { title, description, created, updated, category, tags, cover } = Astro.props;
+---
+
+<PageLayout title={title} description={description} image={cover} type="article">
+  {cover && (
+    <div class="mb-6 overflow-hidden rounded-lg sm:mb-8 sm:rounded-xl">
+      <img src={cover} alt={title} class="h-48 w-full object-cover sm:h-64 md:h-80" loading="lazy" />
+    </div>
+  )}
+
+  <header class="mb-6 text-center sm:mb-8">
+    <h1 class="section-title">{title}</h1>
+    <Divider class="my-6" />
+    <p class="text-muted flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
+      <span class="inline-flex items-center gap-1">
+        <Clock class="meta-icon" aria-hidden="true" />
+        <time datetime={created.toISOString()}>{formatDate(created)}</time>
+      </span>
+      {updated && (
+        <>
+          <span class="text-muted-light" aria-hidden="true">·</span>
+          <span class="inline-flex items-center gap-1">
+            <RefreshCw class="meta-icon" aria-hidden="true" />
+            <span>更新于 {formatDate(updated)}</span>
+          </span>
+        </>
+      )}
+      {category && (
+        <>
+          <span class="text-muted-light" aria-hidden="true">·</span>
+          <a href={`/categories/${category}`} class="link-muted inline-flex items-center gap-1">
+            <Folder class="meta-icon" aria-hidden="true" />
+            {category}
+          </a>
+        </>
+      )}
+    </p>
+    {description && <p class="text-body-secondary mt-4">{description}</p>}
+  </header>
+
+  <div class="prose-shiro prose max-w-none">
+    <slot />
+  </div>
+
+  {tags.length > 0 && (
+    <footer class="section-divider mt-10">
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <Tag class="meta-icon text-muted-light shrink-0" aria-hidden="true" />
+        {tags.map((tag) => (
+          <a href={`/tags/${tag}`} class="tag-pill">{tag}</a>
+        ))}
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/" class="btn-ink">返回文章列表</a>
+      </div>
+    </footer>
+  )}
+</PageLayout>
