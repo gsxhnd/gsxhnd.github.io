@@ -516,8 +516,6 @@ html[data-theme='dark'] .search-modal::backdrop {
 }
 
 .divider-icon {
-  height: 1rem;
-  width: 2.5rem;
   flex-shrink: 0;
   color: var(--color-divider-icon);
 }

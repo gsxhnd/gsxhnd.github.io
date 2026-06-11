@@ -2,6 +2,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { getAllPosts, formatDateShort, groupPostsByYear } from '../utils/content';
+import Clock from '@lucide/astro/icons/clock';
 
 const posts = await getAllPosts();
 const grouped = groupPostsByYear(posts);
@@ -17,9 +18,7 @@ const grouped = groupPostsByYear(posts);
     {grouped.map(({ year, posts: yearPosts }) => (
       <section>
         <h2 class="section-heading">
-          <svg class="text-muted-light size-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
+          <Clock class="text-muted-light size-4 shrink-0" />
           {year}
         </h2>
         <div class="space-y-4">

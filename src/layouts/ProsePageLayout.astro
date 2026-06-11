@@ -1,0 +1,30 @@
+---
+import PageLayout from './PageLayout.astro';
+import Divider from '../components/Divider.astro';
+import { formatDate } from '../utils/content';
+
+interface Props {
+  title: string;
+  description?: string;
+  updated?: Date;
+}
+
+const { title, description, updated } = Astro.props;
+---
+
+<PageLayout title={title} description={description}>
+  <header class="mb-6 text-center sm:mb-8">
+    <h1 class="section-title">{title}</h1>
+    <Divider class="my-6" />
+    {updated && (
+      <p class="text-muted text-sm">
+        <span>更新于 {formatDate(updated)}</span>
+      </p>
+    )}
+    {description && <p class="text-body-secondary mt-4">{description}</p>}
+  </header>
+
+  <div class="prose-shiro prose max-w-none">
+    <slot />
+  </div>
+</PageLayout>

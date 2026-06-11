@@ -7,7 +7,7 @@ import { getAllPosts } from '../utils/content';
 const posts = await getAllPosts();
 ---
 
-<PageLayout title="gsxhnd" isHome={true}>
+<PageLayout title="全菜开发" isHome={true}>
   {posts.length > 0 ? (
     posts.map((post, index) => (
       <>

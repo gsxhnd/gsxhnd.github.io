@@ -1,0 +1,19 @@
+---
+import { getEntry, render } from 'astro:content';
+import ProsePageLayout from '../layouts/ProsePageLayout.astro';
+
+const about = await getEntry('about', 'index');
+if (!about) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(about);
+---
+
+<ProsePageLayout
+  title={about.data.title}
+  description={about.data.description}
+  updated={about.data.updated}
+>
+  <Content />
+</ProsePageLayout>

@@ -1,4 +1,6 @@
 ---
+import X from '@lucide/astro/icons/x';
+
 interface Props {
   postCount: number;
 }
@@ -11,9 +13,7 @@ const { postCount } = Astro.props;
     <header class="search-modal-header">
       <h2 id="search-modal-title" class="search-modal-title">搜索</h2>
       <button id="search-modal-close" type="button" class="search-modal-close" aria-label="关闭搜索">
-        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
-        </svg>
+        <X class="size-5" />
       </button>
     </header>
     <input

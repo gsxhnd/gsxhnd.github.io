@@ -22,7 +22,8 @@ No linter, formatter, or test runner is configured. `npm run build` is the only 
 | Path | Purpose |
 |------|---------|
 | `src/content/blog/` | Markdown/MDX blog posts (glob-loaded collection) |
-| `src/content.config.ts` | Collection schema (Zod): title, description, created, category, tags, draft, cover |
+| `src/content/about/index.md` | Single-file「关于我」页面内容 |
+| `src/content.config.ts` | Collection schema (Zod): blog + about |
 | `astro.config.ts` | Astro build config; `site` URL imported from `src/consts.ts` |
 | `src/consts.ts` | Site-wide constants (title, menu, social, theming, `SITE_URL`) |
 | `src/utils/content.ts` | Shared content helpers — always use `getAllPosts()` instead of raw `getCollection('blog')` so draft filtering and sorting stay consistent |
@@ -37,7 +38,7 @@ No linter, formatter, or test runner is configured. `npm run build` is the only 
 - **Search**: SearchModal lazily fetches `/api/search.json` at runtime; no inline JSON in HTML.
 - **Theming**: Light/dark controlled by `html[data-theme]` attribute + CSS custom properties. The inline script in BaseLayout prevents FOUC.
 - **RSS**: `src/pages/rss.xml.ts` reuses `getAllPosts()` and `siteConfig` — keep it DRY.
-- **Routing**: `/blog/index.astro` redirects to `/`. The homepage _is_ the post list.
+- **Routing**: `/blog/index.astro` redirects to `/`. The homepage _is_ the post list. `/about` renders `src/content/about/index.md` via the `about` collection.
 - **Language**: Site content is in Chinese (zh-CN). Components use Chinese labels.
 
 ## Content Frontmatter
