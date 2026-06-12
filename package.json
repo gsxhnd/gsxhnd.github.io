@@ -22,6 +22,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.2",
+    "motion": "^12.40.0",
     "tailwindcss": "^4.3.0"
   }
 }
