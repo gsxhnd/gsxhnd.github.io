@@ -767,12 +767,7 @@ html[data-theme="dark"] .search-modal::backdrop {
 }
 
 .blog-post-toc__list li + li {
-  margin-top: 0.5rem;
-}
-
-.blog-post-toc__list li.is-sub a {
-  padding-left: 0.75rem;
-  color: var(--color-muted-light);
+  margin-top: 0.42rem;
 }
 
 .blog-post-toc__list a {
@@ -780,17 +775,70 @@ html[data-theme="dark"] .search-modal::backdrop {
   text-decoration: none;
   font-size: 0.875rem;
   line-height: 1.45;
-  color: var(--color-body-secondary);
-  transition: color 0.2s var(--ease-soft);
+  position: relative;
+  width: 1.9rem;
+  min-height: 1.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 999px;
+  padding: 0.38rem 0.72rem;
+  background: transparent;
+  color: transparent;
+  transition:
+    width 0.2s var(--ease-soft),
+    color 0.2s var(--ease-soft),
+    background-color 0.2s var(--ease-soft),
+    transform 0.2s var(--ease-soft);
 }
 
-.blog-post-toc__list a:hover {
-  color: var(--color-seal);
+.blog-post-toc__list a::before {
+  content: "";
+  position: absolute;
+  left: 0.72rem;
+  top: 50%;
+  width: 1.2rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-muted-light) 60%, transparent);
+  transform: translateY(-50%);
+  transition:
+    opacity 0.2s var(--ease-soft),
+    background-color 0.2s var(--ease-soft);
+}
+
+.blog-post-toc:hover .blog-post-toc__list li:not(.is-sub) a,
+.blog-post-toc:focus-within .blog-post-toc__list li:not(.is-sub) a,
+.blog-post-toc__list li:not(.is-sub) a[aria-current="true"] {
+  color: color-mix(in srgb, var(--color-heading) 62%, var(--color-muted) 38%);
+}
+
+.blog-post-toc:hover .blog-post-toc__list li.is-sub a,
+.blog-post-toc:focus-within .blog-post-toc__list li.is-sub a,
+.blog-post-toc__list li.is-sub a[aria-current="true"] {
+  color: color-mix(in srgb, var(--color-muted) 76%, white 24%);
+}
+
+.blog-post-toc:hover .blog-post-toc__list a,
+.blog-post-toc:focus-within .blog-post-toc__list a,
+.blog-post-toc__list a[aria-current="true"] {
+  width: 100%;
+  padding-left: 2.4rem;
+}
+
+.blog-post-toc__list a[aria-current="true"]::before {
+  background: color-mix(in srgb, var(--color-seal) 70%, transparent);
+}
+
+.blog-post-toc__list a:hover,
+.blog-post-toc__list a:focus-visible,
+.blog-post-toc__list a[aria-current="true"] {
+  background: color-mix(in srgb, var(--color-seal) 8%, transparent);
+  transform: translateX(1px);
 }
 
 .blog-post-toc__list a[aria-current="true"] {
-  color: var(--color-seal);
   font-weight: 600;
+  background: color-mix(in srgb, var(--color-seal) 14%, transparent);
 }
 
 /* ── Expressive Code ── */
