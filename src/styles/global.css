@@ -742,10 +742,9 @@ html[data-theme="dark"] .search-modal::backdrop {
   .blog-post-toc {
     position: fixed;
     left: calc(50% + 30rem);
-    top: 7rem;
+    top: 50%;
+    transform: translateY(-50%);
     width: 14rem;
-    border-left: 1px solid var(--color-border-subtle);
-    padding-left: 1rem;
   }
 }
 
