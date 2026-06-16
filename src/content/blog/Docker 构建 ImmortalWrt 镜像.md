@@ -31,7 +31,7 @@ gzip -d rootfs.tar.gz
 
 ### 创建一个 Dockerfile 文件
 
-```Dockerfile
+```docker
 FROM scratch
 ADD rootfs.tar /
 ```

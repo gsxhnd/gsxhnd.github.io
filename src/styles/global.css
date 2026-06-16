@@ -1,11 +1,14 @@
 @import "tailwindcss";
+@import "katex/dist/katex.min.css";
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-code: 'Fira Code', ui-monospace, monospace;
-  --font-eng: 'Cormorant Garamond', serif;
-  --font-serif: 'Cardo', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
-  --font-title: 'Yuji Syuku', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
+  --font-code: "Fira Code", ui-monospace, monospace;
+  --font-eng: "Cormorant Garamond", serif;
+  --font-serif:
+    "Cardo", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", serif;
+  --font-title:
+    "Yuji Syuku", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", serif;
   --shadow-ink: 0 4px 12px rgba(16, 24, 40, 0.14);
   --shadow-ink-pressed: 0 2px 8px rgba(16, 24, 40, 0.12);
   --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -37,11 +40,12 @@ html {
   --color-soft-border: rgba(17, 24, 39, 0.06);
   --color-prose-pre-bg: #f8fafc;
   --color-prose-pre-code: #1e293b;
-  --shadow-paper: 0 1px 1px rgba(16, 24, 40, 0.06), 0 10px 30px rgba(16, 24, 40, 0.08),
+  --shadow-paper:
+    0 1px 1px rgba(16, 24, 40, 0.06), 0 10px 30px rgba(16, 24, 40, 0.08),
     0 35px 70px rgba(16, 24, 40, 0.06);
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   color-scheme: dark;
 
   --color-paper: #1f1e1d;
@@ -73,7 +77,12 @@ body {
 
 /* ── Layout ── */
 .fog-bg {
-  background: linear-gradient(180deg, var(--color-fog-1) 0%, var(--color-fog-2) 55%, var(--color-fog-1) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-fog-1) 0%,
+    var(--color-fog-2) 55%,
+    var(--color-fog-1) 100%
+  );
 }
 
 .paper {
@@ -357,7 +366,9 @@ body {
   font-size: 0.875rem;
   color: var(--color-body-secondary);
   text-decoration: none;
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .tag-pill:hover,
@@ -379,7 +390,9 @@ body {
   font-size: 0.875rem;
   color: var(--color-body-secondary);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .nav-menu-btn:hover {
@@ -422,7 +435,9 @@ body {
   text-align: center;
   color: var(--color-heading);
   text-decoration: none;
-  transition: color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 
 .nav-mobile-link:hover {
@@ -440,10 +455,13 @@ body {
   overflow: hidden;
   opacity: 0;
   transform: translateY(-6px);
-  transition: max-height 0.26s ease-out, opacity 0.26s ease-out, transform 0.26s ease-out;
+  transition:
+    max-height 0.26s ease-out,
+    opacity 0.26s ease-out,
+    transform 0.26s ease-out;
 }
 
-.menu-panel[data-open='true'] {
+.menu-panel[data-open="true"] {
   max-height: 70vh;
   opacity: 1;
   transform: translateY(0);
@@ -523,7 +541,7 @@ body {
   backdrop-filter: blur(4px);
 }
 
-html[data-theme='dark'] .search-modal::backdrop {
+html[data-theme="dark"] .search-modal::backdrop {
   background: rgba(0, 0, 0, 0.6);
 }
 
@@ -564,7 +582,9 @@ html[data-theme='dark'] .search-modal::backdrop {
   background: transparent;
   padding: 0.25rem;
   color: var(--color-muted);
-  transition: color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
 }
 
 .search-modal-close:hover {
@@ -693,6 +713,123 @@ html[data-theme='dark'] .search-modal::backdrop {
   --tw-prose-pre-bg: var(--color-prose-pre-bg);
   --tw-prose-th-borders: var(--color-border);
   --tw-prose-td-borders: var(--color-border);
+}
+
+/* ── Blog TOC ── */
+.blog-post-grid {
+  display: block;
+}
+
+.blog-post-toc-shell {
+  display: none;
+}
+
+.blog-post-toc {
+  display: block;
+}
+
+@media (min-width: 1120px) {
+  .blog-post-toc-shell {
+    display: none;
+  }
+}
+
+@media (min-width: 1360px) {
+  .blog-post-toc-shell {
+    display: block;
+  }
+
+  .blog-post-toc {
+    position: fixed;
+    left: calc(50% + 30rem);
+    top: 7rem;
+    width: 14rem;
+    border-left: 1px solid var(--color-border-subtle);
+    padding-left: 1rem;
+  }
+}
+
+.blog-post-toc__title {
+  margin-bottom: 0.75rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.blog-post-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-post-toc__list li {
+  margin: 0;
+}
+
+.blog-post-toc__list li + li {
+  margin-top: 0.5rem;
+}
+
+.blog-post-toc__list li.is-sub a {
+  padding-left: 0.75rem;
+  color: var(--color-muted-light);
+}
+
+.blog-post-toc__list a {
+  display: block;
+  text-decoration: none;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-body-secondary);
+  transition: color 0.2s var(--ease-soft);
+}
+
+.blog-post-toc__list a:hover {
+  color: var(--color-seal);
+}
+
+.blog-post-toc__list a[aria-current="true"] {
+  color: var(--color-seal);
+  font-weight: 600;
+}
+
+/* ── Expressive Code ── */
+:root {
+  --ec-border-color: color-mix(in srgb, var(--color-border) 85%, transparent);
+}
+
+html[data-theme="dark"] {
+  --ec-border-color: color-mix(in srgb, var(--color-border) 92%, transparent);
+}
+
+.expressive-code .frame {
+  border-color: var(--ec-border-color);
+}
+
+.expressive-code .frame .header {
+  border-bottom-color: color-mix(
+    in srgb,
+    var(--ec-border-color) 85%,
+    transparent
+  );
+}
+
+html[data-theme="light"] .expressive-code {
+  --ec-codeBg: #fff;
+  --ec-codeFg: #24292e;
+  --ec-brdCol: #e1e4e8;
+  --ec-frm-edBg: #fff;
+  --ec-frm-trmBg: #f6f8fa;
+  --ec-gtrFg: #1b1f2381;
+}
+
+html[data-theme="dark"] .expressive-code {
+  --ec-codeBg: #24292e;
+  --ec-codeFg: #e1e4e8;
+  --ec-brdCol: #1b1f23;
+  --ec-frm-edBg: #24292e;
+  --ec-frm-trmBg: #1f2428;
+  --ec-gtrFg: #727980;
 }
 
 /* ── Scrollbar ── */

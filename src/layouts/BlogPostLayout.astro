@@ -15,9 +15,11 @@ interface Props {
   category?: string;
   tags: string[];
   cover?: string;
+  headings?: { depth: number; slug: string; text: string }[];
 }
 
-const { title, description, created, updated, category, tags, cover } = Astro.props;
+const { title, description, created, updated, category, tags, cover, headings = [] } = Astro.props;
+const tocItems = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 ---
 
 <PageLayout title={title} description={description} image={cover} type="article">
@@ -57,9 +59,87 @@ const { title, description, created, updated, category, tags, cover } = Astro.pr
     {description && <p class="text-body-secondary mt-4">{description}</p>}
   </header>
 
-  <div class="prose-shiro prose max-w-none">
-    <slot />
+  <div class="blog-post-grid">
+    <article class="prose-shiro prose max-w-none">
+      <slot />
+    </article>
   </div>
+
+  {tocItems.length > 0 && (
+    <div slot="outside-paper" class="blog-post-toc-shell">
+      <aside class="blog-post-toc" aria-label="文章目录">
+        <p class="blog-post-toc__title">目录</p>
+        <nav data-toc-nav>
+          <ul class="blog-post-toc__list">
+            {tocItems.map((item) => (
+              <li class:list={{ 'is-sub': item.depth === 3 }}>
+                <a href={`#${item.slug}`}>{item.text}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    </div>
+  )}
+
+  {
+    tocItems.length > 0 && (
+      <script>
+        (() => {
+          const tocNav = document.querySelector('[data-toc-nav]');
+          if (!tocNav) return;
+
+          const links = Array.from(tocNav.querySelectorAll('a[href^="#"]'));
+          if (!links.length) return;
+
+          const headingMap = new Map();
+          for (const link of links) {
+            const href = link.getAttribute('href');
+            if (!href) continue;
+            const id = decodeURIComponent(href.slice(1));
+            const heading = document.getElementById(id);
+            if (heading) {
+              headingMap.set(id, { link, heading });
+            }
+          }
+
+          const entries = Array.from(headingMap.entries());
+          if (!entries.length) return;
+
+          const setActive = (id: string) => {
+            for (const [key, item] of entries) {
+              if (key === id) {
+                item.link.setAttribute('aria-current', 'true');
+              } else {
+                item.link.removeAttribute('aria-current');
+              }
+            }
+          };
+
+          const observer = new IntersectionObserver(
+            (observerEntries) => {
+              const visible = observerEntries
+                .filter((entry) => entry.isIntersecting)
+                .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+              if (visible.length > 0) {
+                setActive(visible[0].target.id);
+              }
+            },
+            {
+              rootMargin: '-18% 0px -72% 0px',
+              threshold: [0, 1],
+            }
+          );
+
+          for (const [, { heading }] of entries) {
+            observer.observe(heading);
+          }
+
+          setActive(entries[0][0]);
+        })();
+      </script>
+    )
+  }
 
   {tags.length > 0 && (
     <footer class="section-divider mt-10">

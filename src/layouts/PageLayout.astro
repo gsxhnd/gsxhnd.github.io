@@ -28,6 +28,7 @@ const posts = await getAllPosts();
       </main>
       <Footer />
     </div>
+    <slot name="outside-paper" />
     <aside class="mt-4 text-center" aria-hidden="true">
       <p class="site-note select-none font-light" lang="ja">{siteConfig.note}</p>
     </aside>
