@@ -14,6 +14,8 @@ import { SITE_URL } from './src/consts';
 
 import expressiveCode from 'astro-expressive-code';
 
+import cloudflare from '@astrojs/cloudflare';
+
 function remarkCodeFilenameToTitle() {
   return (tree: { children?: unknown[] }) => {
     const walk = (node: unknown) => {
@@ -70,6 +72,7 @@ function remarkForceCodeFrame() {
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
+
   integrations: [
     expressiveCode({
       themes: ['github-light', 'github-dark'],
@@ -97,6 +100,7 @@ export default defineConfig({
     mdx(),
     sitemap(),
   ],
+
   markdown: {
     processor: unified({
       remarkPlugins: [
@@ -112,7 +116,10 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex],
     }),
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: cloudflare()
 });
