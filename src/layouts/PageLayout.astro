@@ -21,7 +21,10 @@ const posts = await getAllPosts();
 
 <BaseLayout title={title} description={description} image={image} type={type}>
   <div class="min-h-full px-3 pt-10 pb-6 fog-bg sm:px-4 sm:pt-14 md:pb-5">
-    <div class="paper relative mx-auto w-full max-w-4xl rounded-lg px-4 pt-8 pb-6 sm:rounded-xl sm:px-8 sm:pt-10 md:px-12 md:pt-12 md:pb-8 lg:px-14">
+    <div
+      data-page-enter
+      class="paper relative mx-auto w-full max-w-4xl rounded-lg px-4 pt-8 pb-6 sm:rounded-xl sm:px-8 sm:pt-10 md:px-12 md:pt-12 md:pb-8 lg:px-14"
+    >
       <Header isHome={isHome} />
       <main class="section-divider">
         <slot />

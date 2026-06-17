@@ -16,14 +16,14 @@ const grouped = groupPostsByYear(posts);
 
   <div class="mx-auto max-w-2xl space-y-12 sm:space-y-16">
     {grouped.map(({ year, posts: yearPosts }) => (
-      <section>
-        <h2 class="section-heading">
+      <section data-reveal-group>
+        <h2 class="section-heading" data-reveal>
           <Clock class="text-muted-light size-4 shrink-0" />
           {year}
         </h2>
         <div class="space-y-4">
           {yearPosts.map((post) => (
-            <article class="archive-item group">
+            <article class="archive-item group" data-reveal>
               <time datetime={post.data.created.toISOString()} class="oldstyle-nums">
                 {formatDateShort(post.data.created).replace(/-/g, '/')}
               </time>

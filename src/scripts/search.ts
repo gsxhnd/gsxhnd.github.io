@@ -1,3 +1,5 @@
+import { animate } from 'motion';
+import { SOFT_EASE, prefersReducedMotion, revealBatch } from './motion';
 import type { SearchIndexItem } from '../types/search';
 
 function escapeHtml(text: string): string {
@@ -33,6 +35,8 @@ function renderResults(container: HTMLElement, results: SearchIndexItem[]) {
       `,
     )
     .join('');
+
+  revealBatch(container.querySelectorAll('.search-result-card'));
 }
 
 function focusInput(input: HTMLInputElement) {
@@ -82,14 +86,37 @@ export function initSearchModal(searchIndex: SearchIndexItem[]) {
     input.value = '';
     clearResults();
     dialog.showModal();
+
+    if (panel && !prefersReducedMotion()) {
+      animate(
+        panel,
+        { opacity: [0, 1], transform: ['translateY(10px) scale(0.97)', 'translateY(0px) scale(1)'] },
+        { duration: 0.28, ease: SOFT_EASE },
+      );
+    }
+
     focusInput(input);
   }
 
   function closeModal() {
     if (!dialog.open) return;
-    dialog.close();
-    clearResults();
-    input.value = '';
+
+    const finish = () => {
+      dialog.close();
+      clearResults();
+      input.value = '';
+    };
+
+    if (panel && !prefersReducedMotion()) {
+      animate(
+        panel,
+        { opacity: 0, transform: 'translateY(10px) scale(0.97)' },
+        { duration: 0.16, ease: 'easeIn' },
+      ).finished.then(finish).catch(finish);
+      return;
+    }
+
+    finish();
   }
 
   openBtn?.addEventListener('click', openModal);

@@ -23,10 +23,12 @@ const categories = await getAllCategories();
       <a href={`/categories/${cat}`} class:list={['tag-pill', { 'is-active': cat === category }]}>{cat}</a>
     ))}
   </div>
-  {posts.map((post, index) => (
-    <>
-      <PostCard post={post} />
-      {index < posts.length - 1 && <Divider />}
-    </>
-  ))}
+  <div data-reveal-group>
+    {posts.map((post, index) => (
+      <div data-reveal>
+        <PostCard post={post} />
+        {index < posts.length - 1 && <Divider />}
+      </div>
+    ))}
+  </div>
 </PageLayout>

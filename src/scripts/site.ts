@@ -1,3 +1,6 @@
+import { animate } from 'motion';
+import { SOFT_EASE, prefersReducedMotion } from './motion';
+
 function syncThemeIcons() {
   const isDark = document.documentElement.dataset.theme === 'dark';
   document.getElementById('icon-light')?.classList.toggle('hidden', isDark);
@@ -17,14 +20,33 @@ export function initThemeToggle() {
 }
 
 export function initMobileMenu() {
-  document.getElementById('menu-btn')?.addEventListener('click', () => {
-    const menu = document.getElementById('mobile-menu');
-    const btn = document.getElementById('menu-btn');
-    const chevron = document.getElementById('menu-chevron');
-    const isOpen = menu?.dataset.open === 'true';
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const chevron = document.getElementById('menu-chevron');
+  if (!btn || !menu) return;
 
-    if (menu) menu.dataset.open = isOpen ? 'false' : 'true';
-    btn?.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-    chevron?.classList.toggle('rotate-180', !isOpen);
+  const reduce = prefersReducedMotion();
+  let open = false;
+  let running: ReturnType<typeof animate> | null = null;
+
+  if (!reduce) {
+    menu.style.height = '0px';
+    menu.style.opacity = '0';
+  }
+
+  btn.addEventListener('click', () => {
+    open = !open;
+    menu.dataset.open = open ? 'true' : 'false';
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    chevron?.classList.toggle('rotate-180', open);
+
+    if (reduce) return;
+
+    running?.stop();
+    running = animate(
+      menu,
+      { height: open ? 'auto' : 0, opacity: open ? 1 : 0 },
+      { duration: open ? 0.32 : 0.24, ease: SOFT_EASE },
+    );
   });
 }

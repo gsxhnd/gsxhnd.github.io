@@ -75,6 +75,29 @@ body {
   color: var(--color-ink);
 }
 
+/* ── Motion ──
+   Pre-hide animated elements only when JS will drive them (the inline head
+   script adds `.motion-ready` unless the user prefers reduced motion). This
+   avoids a flash of un-styled content while keeping things visible as a
+   fallback if scripts fail or are disabled. */
+html.motion-ready [data-page-enter] {
+  opacity: 0;
+}
+
+html.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page-enter],
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* ── Layout ── */
 .fog-bg {
   background: linear-gradient(
@@ -432,21 +455,23 @@ body {
   background: color-mix(in srgb, var(--color-border) 70%, transparent);
 }
 
+/* Height/opacity are driven by Motion (see initMobileMenu); CSS only clips
+   the panel and provides a no-JS-safe collapsed default. */
 .menu-panel {
-  max-height: 0;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition:
-    max-height 0.26s ease-out,
-    opacity 0.26s ease-out,
-    transform 0.26s ease-out;
 }
 
-.menu-panel[data-open="true"] {
+html:not(.motion-ready) .menu-panel {
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.26s ease-out,
+    opacity 0.26s ease-out;
+}
+
+html:not(.motion-ready) .menu-panel[data-open="true"] {
   max-height: 70vh;
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* ── Search ── */
@@ -521,6 +546,25 @@ body {
 .search-modal::backdrop {
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(4px);
+}
+
+.search-modal[open]::backdrop {
+  animation: search-backdrop-in 0.28s var(--ease-soft) both;
+}
+
+@keyframes search-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-modal[open]::backdrop {
+    animation: none;
+  }
 }
 
 html[data-theme="dark"] .search-modal::backdrop {

@@ -10,9 +10,9 @@ const categoryCounts = countBy(posts, (post) => post.data.category);
 
 <PageLayout title="分类" description="浏览所有文章分类">
   <PageHeader title="分类" description={`共 ${categories.length} 个分类`} />
-  <div class="flex flex-wrap justify-center gap-2">
+  <div class="flex flex-wrap justify-center gap-2" data-reveal-group>
     {categories.map((category) => (
-      <a href={`/categories/${category}`} class="tag-pill">
+      <a href={`/categories/${category}`} class="tag-pill" data-reveal>
         {category}
         <span class="ml-1 text-xs opacity-60">{categoryCounts[category] ?? 0}</span>
       </a>

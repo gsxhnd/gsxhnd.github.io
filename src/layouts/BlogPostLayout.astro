@@ -24,12 +24,12 @@ const tocItems = headings.filter((heading) => heading.depth >= 2 && heading.dept
 
 <PageLayout title={title} description={description} image={cover} type="article">
   {cover && (
-    <div class="mb-6 overflow-hidden rounded-lg sm:mb-8 sm:rounded-xl">
+    <div class="mb-6 overflow-hidden rounded-lg sm:mb-8 sm:rounded-xl" data-reveal>
       <img src={cover} alt={title} class="h-48 w-full object-cover sm:h-64 md:h-80" loading="lazy" />
     </div>
   )}
 
-  <header class="mb-6 text-center sm:mb-8">
+  <header class="mb-6 text-center sm:mb-8" data-reveal>
     <h1 class="section-title">{title}</h1>
     <Divider class="my-6" />
     <p class="text-muted flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
@@ -58,7 +58,7 @@ const tocItems = headings.filter((heading) => heading.depth >= 2 && heading.dept
     </p>
   </header>
 
-  <div class="blog-post-grid">
+  <div class="blog-post-grid" data-reveal>
     <article class="prose-shiro prose max-w-none">
       <slot />
     </article>
@@ -141,7 +141,7 @@ const tocItems = headings.filter((heading) => heading.depth >= 2 && heading.dept
   }
 
   {tags.length > 0 && (
-    <footer class="section-divider mt-10">
+    <footer class="section-divider mt-10" data-reveal>
       <div class="flex flex-wrap items-center justify-center gap-2">
         <Tag class="meta-icon text-muted-light shrink-0" aria-hidden="true" />
         {tags.map((tag) => (

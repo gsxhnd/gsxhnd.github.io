@@ -10,9 +10,9 @@ const tagCounts = countTags(posts);
 
 <PageLayout title="标签" description="浏览所有文章标签">
   <PageHeader title="标签" description={`共 ${tags.length} 个标签`} />
-  <div class="flex flex-wrap justify-center gap-2">
+  <div class="flex flex-wrap justify-center gap-2" data-reveal-group>
     {tags.map((tag) => (
-      <a href={`/tags/${tag}`} class="tag-pill">
+      <a href={`/tags/${tag}`} class="tag-pill" data-reveal>
         {tag}
         <span class="ml-1 text-xs opacity-60">{tagCounts[tag] ?? 0}</span>
       </a>

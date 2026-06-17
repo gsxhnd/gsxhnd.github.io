@@ -13,7 +13,7 @@ const { title, description, updated } = Astro.props;
 ---
 
 <PageLayout title={title} description={description}>
-  <header class="mb-6 text-center sm:mb-8">
+  <header class="mb-6 text-center sm:mb-8" data-reveal>
     <h1 class="section-title">{title}</h1>
     <Divider class="my-6" />
     {updated && (
@@ -24,7 +24,7 @@ const { title, description, updated } = Astro.props;
     {description && <p class="text-body-secondary mt-4">{description}</p>}
   </header>
 
-  <div class="prose-shiro prose max-w-none">
+  <div class="prose-shiro prose max-w-none" data-reveal>
     <slot />
   </div>
 </PageLayout>
