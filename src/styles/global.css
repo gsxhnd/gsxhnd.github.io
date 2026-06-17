@@ -838,42 +838,128 @@ html[data-theme="dark"] .search-modal::backdrop {
 }
 
 /* ── Expressive Code ── */
-:root {
-  --ec-border-color: color-mix(in srgb, var(--color-border) 85%, transparent);
-}
-
-html[data-theme="dark"] {
-  --ec-border-color: color-mix(in srgb, var(--color-border) 92%, transparent);
-}
-
-.expressive-code .frame {
-  border-color: var(--ec-border-color);
-}
-
-.expressive-code .frame .header {
-  border-bottom-color: color-mix(
-    in srgb,
-    var(--ec-border-color) 85%,
-    transparent
-  );
-}
-
 html[data-theme="light"] .expressive-code {
-  --ec-codeBg: #fff;
-  --ec-codeFg: #24292e;
-  --ec-brdCol: #e1e4e8;
-  --ec-frm-edBg: #fff;
-  --ec-frm-trmBg: #f6f8fa;
-  --ec-gtrFg: #1b1f2381;
+  --ec-codeBg: #f8fafc;
+  --ec-codeFg: #1e293b;
+  --ec-brdCol: #c7d5e3;
+  --ec-frm-edBg: #f8fafc;
+  --ec-frm-edActTabBg: #ffffff;
+  --ec-frm-edActTabFg: #1e293b;
+  --ec-frm-edActTabBrdCol: #c7d5e3;
+  --ec-frm-edTabBarBg: #f8fafc;
+  --ec-frm-edTabBarBrdCol: #c7d5e3;
+  --ec-frm-edTabBarBrdBtmCol: transparent;
+  --ec-frm-trmBg: #f8fafc;
+  --ec-frm-trmTtbBg: #ffffff;
+  --ec-frm-trmTtbFg: #475569;
+  --ec-frm-trmTtbBrdBtmCol: #c7d5e3;
+  --ec-frm-inlBtnFg: #475569;
+  --ec-frm-inlBtnBg: #e2e8f0;
+  --ec-frm-inlBtnBrd: #cbd5e1;
+  --ec-gtrFg: #94a3b8;
+  --ec-file-tab-dot: #22c55e;
+  --ec-copy-btn-bg: color-mix(in srgb, var(--ec-codeBg) 82%, var(--ec-brdCol));
+  --ec-copy-btn-fg: #64748b;
+  --ec-copy-btn-border: color-mix(in srgb, var(--ec-brdCol) 75%, transparent);
 }
 
 html[data-theme="dark"] .expressive-code {
-  --ec-codeBg: #24292e;
-  --ec-codeFg: #e1e4e8;
-  --ec-brdCol: #1b1f23;
-  --ec-frm-edBg: #24292e;
-  --ec-frm-trmBg: #1f2428;
-  --ec-gtrFg: #727980;
+  --ec-codeBg: #0b1117;
+  --ec-codeFg: #e6edf3;
+  --ec-brdCol: #1e2d3d;
+  --ec-frm-edBg: #0b1117;
+  --ec-frm-edActTabBg: #151d28;
+  --ec-frm-edActTabFg: #e6edf3;
+  --ec-frm-edActTabBrdCol: #1e2d3d;
+  --ec-frm-edTabBarBg: #0b1117;
+  --ec-frm-edTabBarBrdCol: #1e2d3d;
+  --ec-frm-edTabBarBrdBtmCol: transparent;
+  --ec-frm-trmBg: #0b1117;
+  --ec-frm-trmTtbBg: #151d28;
+  --ec-frm-trmTtbFg: #c9d1d9;
+  --ec-frm-trmTtbBrdBtmCol: #1e2d3d;
+  --ec-frm-inlBtnFg: #c9d1d9;
+  --ec-frm-inlBtnBg: #21262d;
+  --ec-frm-inlBtnBrd: #30363d;
+  --ec-gtrFg: #484f58;
+  --ec-file-tab-dot: #3fb950;
+  --ec-copy-btn-bg: color-mix(in srgb, var(--ec-codeBg) 88%, #ffffff 4%);
+  --ec-copy-btn-fg: #8b949e;
+  --ec-copy-btn-border: color-mix(in srgb, var(--ec-brdCol) 70%, transparent);
+}
+
+/* 文件名标签页：绿色圆点 + 等宽字体 */
+.expressive-code .frame.has-title:not(.is-terminal) .title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-code);
+  font-size: 0.8125rem;
+}
+
+.expressive-code .frame.has-title:not(.is-terminal) .title::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--ec-file-tab-dot);
+  position: relative;
+  z-index: 1;
+}
+
+/* Copy 按钮：融入代码块背景，显示文字标签 */
+.expressive-code .frame .copy button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  min-height: 1.5rem;
+  padding: 0.15rem 0.5rem;
+  opacity: 1;
+  border-radius: 0.375rem;
+  background: var(--ec-copy-btn-bg);
+  border: 1px solid var(--ec-copy-btn-border);
+}
+
+.expressive-code .frame .copy button div,
+.expressive-code .frame .copy button::before {
+  display: none;
+}
+
+.expressive-code .frame .copy button::after {
+  content: "Copy";
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0;
+  background: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  font-family: var(--ec-uiFontFml);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ec-copy-btn-fg);
+}
+
+.expressive-code .frame .copy button:hover,
+.expressive-code .frame .copy button:focus-visible {
+  background: color-mix(in srgb, var(--ec-copy-btn-bg) 85%, var(--ec-copy-btn-fg));
+  border-color: color-mix(in srgb, var(--ec-copy-btn-border) 80%, var(--ec-copy-btn-fg));
+}
+
+.expressive-code .frame .copy button:hover::after,
+.expressive-code .frame .copy button:focus-visible::after {
+  color: var(--ec-codeFg);
+}
+
+.expressive-code .frame:hover .copy button:not(:hover),
+.expressive-code .frame:focus-within :focus-visible ~ .copy button:not(:hover),
+.expressive-code .frame .copy .feedback.show ~ button:not(:hover) {
+  opacity: 1;
 }
 
 /* ── Scrollbar ── */

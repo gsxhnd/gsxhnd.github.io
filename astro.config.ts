@@ -43,6 +43,30 @@ function remarkCodeFilenameToTitle() {
   };
 }
 
+function remarkForceCodeFrame() {
+  return (tree: { children?: unknown[] }) => {
+    const walk = (node: unknown) => {
+      if (!node || typeof node !== 'object') return;
+      const mdNode = node as { type?: string; meta?: string; children?: unknown[] };
+
+      if (mdNode.type === 'code') {
+        const meta = mdNode.meta ?? '';
+        if (!/(?:^|\s)frame=/.test(meta)) {
+          mdNode.meta = meta ? `${meta} frame=code` : 'frame=code';
+        }
+      }
+
+      if (Array.isArray(mdNode.children)) {
+        for (const child of mdNode.children) {
+          walk(child);
+        }
+      }
+    };
+
+    walk(tree);
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
@@ -53,6 +77,22 @@ export default defineConfig({
       themeCssRoot: 'html',
       themeCssSelector: (theme) => (theme.type === 'dark' ? '[data-theme="dark"]' : '[data-theme="light"]'),
       emitExternalStylesheet: false,
+      styleOverrides: {
+        borderRadius: '0.75rem',
+        borderWidth: '1px',
+        codeFontFamily: 'var(--font-code)',
+        codePaddingBlock: '1rem',
+        codePaddingInline: '1.25rem',
+        frames: {
+          frameBoxShadowCssValue: 'none',
+          editorActiveTabIndicatorHeight: '0',
+          editorActiveTabIndicatorTopColor: 'transparent',
+          editorActiveTabIndicatorBottomColor: 'transparent',
+          editorTabsMarginInlineStart: '0.75rem',
+          editorTabBorderRadius: '0.625rem',
+          inlineButtonBorderOpacity: '0',
+        },
+      },
     }),
     mdx(),
     sitemap(),
@@ -61,6 +101,7 @@ export default defineConfig({
     processor: unified({
       remarkPlugins: [
         remarkCodeFilenameToTitle,
+        remarkForceCodeFrame,
         remarkGithubAdmonitionsToDirectives,
         remarkDirective,
         remarkDirectiveRehype,
