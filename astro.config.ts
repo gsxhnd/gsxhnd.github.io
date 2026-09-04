@@ -1,33 +1,33 @@
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import { unified } from '@astrojs/markdown-remark';
-import sitemap from '@astrojs/sitemap';
-import tailwindcss from '@tailwindcss/vite';
-import rehypeKatex from 'rehype-katex';
-import remarkCollapse from 'remark-collapse';
-import remarkDirective from 'remark-directive';
-import remarkDirectiveRehype from 'remark-directive-rehype';
-import remarkGithubAdmonitionsToDirectives from 'remark-github-admonitions-to-directives';
-import remarkMath from 'remark-math';
-import remarkSectionize from 'remark-sectionize';
-import { SITE_URL } from './src/consts';
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import { unified } from "@astrojs/markdown-remark";
+import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
+import rehypeKatex from "rehype-katex";
+import remarkCollapse from "remark-collapse";
+import remarkDirective from "remark-directive";
+import remarkDirectiveRehype from "remark-directive-rehype";
+import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-directives";
+import remarkMath from "remark-math";
+import remarkSectionize from "remark-sectionize";
+import { SITE_URL } from "./src/consts";
 
-import expressiveCode from 'astro-expressive-code';
-
-import cloudflare from '@astrojs/cloudflare';
+import expressiveCode from "astro-expressive-code";
 
 function remarkCodeFilenameToTitle() {
   return (tree: { children?: unknown[] }) => {
     const walk = (node: unknown) => {
-      if (!node || typeof node !== 'object') return;
+      if (!node || typeof node !== "object") return;
       const mdNode = node as {
         type?: string;
         meta?: string;
         children?: unknown[];
       };
 
-      if (mdNode.type === 'code' && typeof mdNode.meta === 'string') {
-        const filenameMatch = mdNode.meta.match(/(?:^|\s)filename=(["'])(.*?)\1/);
+      if (mdNode.type === "code" && typeof mdNode.meta === "string") {
+        const filenameMatch = mdNode.meta.match(
+          /(?:^|\s)filename=(["'])(.*?)\1/,
+        );
         const hasTitle = /(?:^|\s)title=(["']).*?\1/.test(mdNode.meta);
         if (filenameMatch && !hasTitle) {
           mdNode.meta = `${mdNode.meta} title="${filenameMatch[2]}"`;
@@ -48,13 +48,17 @@ function remarkCodeFilenameToTitle() {
 function remarkForceCodeFrame() {
   return (tree: { children?: unknown[] }) => {
     const walk = (node: unknown) => {
-      if (!node || typeof node !== 'object') return;
-      const mdNode = node as { type?: string; meta?: string; children?: unknown[] };
+      if (!node || typeof node !== "object") return;
+      const mdNode = node as {
+        type?: string;
+        meta?: string;
+        children?: unknown[];
+      };
 
-      if (mdNode.type === 'code') {
-        const meta = mdNode.meta ?? '';
+      if (mdNode.type === "code") {
+        const meta = mdNode.meta ?? "";
         if (!/(?:^|\s)frame=/.test(meta)) {
-          mdNode.meta = meta ? `${meta} frame=code` : 'frame=code';
+          mdNode.meta = meta ? `${meta} frame=code` : "frame=code";
         }
       }
 
@@ -75,25 +79,26 @@ export default defineConfig({
 
   integrations: [
     expressiveCode({
-      themes: ['github-light', 'github-dark'],
+      themes: ["github-light", "github-dark"],
       useDarkModeMediaQuery: false,
-      themeCssRoot: 'html',
-      themeCssSelector: (theme) => (theme.type === 'dark' ? '[data-theme="dark"]' : '[data-theme="light"]'),
+      themeCssRoot: "html",
+      themeCssSelector: (theme) =>
+        theme.type === "dark" ? '[data-theme="dark"]' : '[data-theme="light"]',
       emitExternalStylesheet: false,
       styleOverrides: {
-        borderRadius: '0.75rem',
-        borderWidth: '1px',
-        codeFontFamily: 'var(--font-code)',
-        codePaddingBlock: '1rem',
-        codePaddingInline: '1.25rem',
+        borderRadius: "0.75rem",
+        borderWidth: "1px",
+        codeFontFamily: "var(--font-code)",
+        codePaddingBlock: "1rem",
+        codePaddingInline: "1.25rem",
         frames: {
-          frameBoxShadowCssValue: 'none',
-          editorActiveTabIndicatorHeight: '0',
-          editorActiveTabIndicatorTopColor: 'transparent',
-          editorActiveTabIndicatorBottomColor: 'transparent',
-          editorTabsMarginInlineStart: '0.75rem',
-          editorTabBorderRadius: '0.625rem',
-          inlineButtonBorderOpacity: '0',
+          frameBoxShadowCssValue: "none",
+          editorActiveTabIndicatorHeight: "0",
+          editorActiveTabIndicatorTopColor: "transparent",
+          editorActiveTabIndicatorBottomColor: "transparent",
+          editorTabsMarginInlineStart: "0.75rem",
+          editorTabBorderRadius: "0.625rem",
+          inlineButtonBorderOpacity: "0",
         },
       },
     }),
@@ -111,7 +116,7 @@ export default defineConfig({
         remarkDirectiveRehype,
         remarkMath,
         remarkSectionize,
-        [remarkCollapse, { test: /^details$/i, summary: '展开详情' }],
+        [remarkCollapse, { test: /^details$/i, summary: "展开详情" }],
       ],
       rehypePlugins: [rehypeKatex],
     }),
@@ -120,6 +125,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-
-  adapter: cloudflare()
 });
